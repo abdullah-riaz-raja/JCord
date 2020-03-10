@@ -32,9 +32,9 @@ public class Launcher extends Application {
             MessageViewers test = new MessageViewers(userTest, time,message);
             messageViewHolder.getChildren().add(test.generateMessageViewNode());
         }
-        ptest.setContent(ptest);
+        ptest.setContent(messageViewHolder);
         
-        pane.getChildren().add(ptest);
+        pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox());
         Scene scene = new Scene(pane);
         
         scene.getStylesheets().add("customCss.css");
