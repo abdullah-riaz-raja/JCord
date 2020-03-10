@@ -39,7 +39,6 @@ public class MessageCreator{
 
         Button attachment = new Button();
         attachment.setGraphic(addIcon);
-        attachment.setId("addButton");
         attachment.setPadding(new Insets(2,2,2,2));
         attachment.setId("roundAttachmenButton");
         attachment.setAlignment(Pos.BOTTOM_CENTER);

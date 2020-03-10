@@ -1,7 +1,7 @@
 
 
 #messageCreate {
-    -fx-background-color: #40444b;
+    -fx-background-color: #585e68;
     -fx-border-radius: 2;
     -fx-border-width: 2;
     -fx-border-color: #40444b;
@@ -20,4 +20,9 @@
     -fx-background-radius: 5em;
     -fx-background-color: #40444b;
 
+}
+
+
+#messaveViewBackround {
+    -fx-background-color: #40444b;
 }
