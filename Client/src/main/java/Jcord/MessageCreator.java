@@ -8,7 +8,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -32,7 +31,8 @@ public class MessageCreator{
         messageBox.setPrefWidth(1500);
         messageBox.setMaxWidth(1500);
         messageBox.setFont(new Font("Whitney", 12));
-        messageBox.setId("messageCreate");
+        messageBox.getStyleClass().add("message");
+
        
         messageBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -58,7 +58,7 @@ public class MessageCreator{
         Button attachment = new Button();
         attachment.setGraphic(addIcon);
         attachment.setPadding(new Insets(2,2,2,2));
-        attachment.setId("roundAttachmenButton");
+        attachment.getStyleClass().add("roundAttachmenButton");
         attachment.setAlignment(Pos.BOTTOM_CENTER);
 
         attachment.setOnAction(e -> {
@@ -73,7 +73,7 @@ public class MessageCreator{
 
 
         pane.getChildren().addAll(attachment,messageBox);        
-        pane.setId("messageCreatePane");
+        pane.getStyleClass().add("messageCreate");
         
         return pane;
     }

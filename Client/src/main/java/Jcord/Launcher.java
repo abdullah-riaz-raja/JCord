@@ -10,6 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+/*
 public class Launcher extends Application{
 
     @Override
@@ -37,6 +38,7 @@ public class Launcher extends Application{
     
     }
 }
+*/
 
 
 
@@ -57,16 +59,14 @@ public class Launcher extends Application{
 
 
 
-
-/*
 public class Launcher extends Application {
     
     @Override
     public void start(Stage primaryStage) throws Exception {
         VBox pane = new VBox();
+        pane.getStyleClass().add("body-pane");
 
-
-        User userTest = new User("Coleman2247",new Image("TestPreDataBase/index.jpeg"));
+        User userTest = new User("Cole",new Image("TestPreDataBase/index.jpeg"));
 
         String message = new String("Hello");
 
@@ -83,7 +83,8 @@ public class Launcher extends Application {
             messageViewHolder.getChildren().add(test.generateMessageViewNode());
         }
         ptest.setContent(messageViewHolder);
-        
+        ptest.getStyleClass().add("messageWindow");
+
         pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox(primaryStage));
         Scene scene = new Scene(pane);
         
@@ -97,4 +98,4 @@ public class Launcher extends Application {
    
 
 }
- */
+ 

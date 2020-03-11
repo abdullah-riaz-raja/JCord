@@ -1,5 +1,79 @@
+/*
+.body-pane {
+    -fx-background-color: #40444b;
+}
+*/
+.messageView{
+    -fx-background-color: #40444b;
+}
 
 
+.messageView .text-area{
+    -fx-font-family: "Whitney";
+    -fx-text-fill: #ffffff;
+    -fx-display-caret:false;
+    -fx-text-box-border: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.messageView .text-area .content{
+    -fx-background-color: #40444b;
+    -fx-background-radius: 0 ;
+}
+
+
+.messageView .time{
+    -fx-font-size: 9;
+}
+
+.messageView .name{
+    -fx-font-size: 12;
+}
+
+.messageView .body {
+    -fx-font-size: 13;
+}
+
+
+.messageView .text-area > .scroll-pane{
+    -fx-vbar-policy:never;
+    -fx-focus-color: transparent;
+    
+}
+
+.messageWindow {
+    -fx-background-color: #40444b;
+}
+
+.messageCreate {
+    -fx-background-color: #40444b;
+    -fx-border-radius: 0;
+    -fx-border-width: 2;
+    -fx-border-color: #494d55;
+}
+
+
+.messageCreate .text-area .content{
+    -fx-background-color: #40444b;
+    -fx-background-radius: 0 ;
+}
+
+.messageCreate .message.text-area {
+    -fx-background-color: #585e68;
+    -fx-border-radius: 2;
+    -fx-border-width: 2;
+    -fx-border-color: #40444b;
+    -fx-text-inner-color: white;
+}
+
+.messageCreate .button {
+    -fx-background-radius: 5em;
+    -fx-background-color: #40444b;
+}
+
+
+/*
 #messageCreate {
     -fx-background-color: #585e68;
     -fx-border-radius: 2;
@@ -24,7 +98,6 @@
 
 
 #messaveViewBackround {
-    -fx-background-color: #40444b;
 }
 
 #timeFormat {
@@ -34,7 +107,8 @@
 
 .text-area .content{
     -fx-background-color: #40444b;
-  }
+    -fx-background-radius: 0 ;
+}
 
 
 .text-area{
@@ -57,4 +131,4 @@
     -fx-vbar-policy:never;
     -fx-focus-color: transparent;
 }
-    
+*/
