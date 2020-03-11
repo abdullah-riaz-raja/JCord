@@ -1,34 +1,52 @@
 package Jcord;
 
+import java.io.File;
+
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
 public class MessageCreator{
-
-    public static Node GenerateMessageBox(){
+    
+    
+    public static Node GenerateMessageBox(Stage stage){
         // pane is just for testing, actual class will just be functional
         HBox pane = new HBox();
 
         // Defaults to Message channel name
-        TextField messageBox = new TextField();
+        TextArea messageBox = new TextArea();
         messageBox.setPrefHeight(30);
-        messageBox.setMaxHeight(30);
+        messageBox.setWrapText(true);
         messageBox.setPrefWidth(1500);
         messageBox.setMaxWidth(1500);
         messageBox.setFont(new Font("Whitney", 12));
         messageBox.setId("messageCreate");
        
-        messageBox.setOnAction(e -> {
-            // call send message function
+        messageBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER)  {
+                    String text = messageBox.getText();
+        
+                    // send over sockets to main server
+                    
+                    // clear text
+                    messageBox.setText("");
+                }
+            }
         });
-
 
 
         
@@ -44,7 +62,12 @@ public class MessageCreator{
         attachment.setAlignment(Pos.BOTTOM_CENTER);
 
         attachment.setOnAction(e -> {
-            // call attachment function    
+                
+            FileChooser fileChooser = new FileChooser();
+            File file = fileChooser.showOpenDialog(stage);
+            
+            // send file over sockets
+        
         });
 
 

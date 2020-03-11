@@ -34,7 +34,7 @@ public class Launcher extends Application {
         }
         ptest.setContent(messageViewHolder);
         
-        pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox());
+        pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox(primaryStage));
         Scene scene = new Scene(pane);
         
         scene.getStylesheets().add("customCss.css");

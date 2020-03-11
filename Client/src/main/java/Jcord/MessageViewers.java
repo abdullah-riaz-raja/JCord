@@ -3,14 +3,17 @@ package Jcord;
 import java.util.Date;
 
 import javafx.scene.Node;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 
 public class MessageViewers {
+
     public User user;
     private Date timeSent;
     private String message;
@@ -38,40 +41,41 @@ public class MessageViewers {
         pane.getChildren().add(profileView);
         pane.setId("messaveViewBackround");
 
-        GridPane messageInfo = new GridPane();
+        VBox messageInfo = new VBox();
+        messageInfo.setSpacing(5);
 
-        Text userName = new Text(this.user.getUsername());
-        messageInfo.add(userName, 0, 0);
+        HBox top = new HBox();
+
+        StackPane useName = new StackPane();
         
-        // setting user name style and font
+        // for displaying the username on a message
+        TextField userName = new TextField(this.user.getUsername());
+        useName.getChildren().add(userName);
         userName.setFont(new Font("Whitney", 12));
-        userName.setStyle("-fx-fill: white;");
-        
+        userName.setId("timeFormat");
+        userName.setEditable(false);
+        userName.setPrefWidth(9*user.getUsername().length());
+        top.getChildren().add(useName);
 
-        Text time = new Text(this.timeSent.toString());
-        
-        // setting time font and color
+
+        // for the time around the username
+        TextField time = new TextField(this.timeSent.toString());
         time.setFont(new Font("Whitney", 9));
-        time.setStyle("-fx-fill: white;");
-
-        messageInfo.add(time,1,0);
-        messageInfo.setHgap(5);
-        messageInfo.setVgap(10);
-
-        Text msgText = new Text(this.message);
-        
-        msgText.setFont(new Font("Whitney", 14));
-        msgText.setStyle("-fx-fill: white;");
-
-        messageInfo.add(msgText,0,1);
+        time.setId("timeFormat");
+        time.setPrefWidth(175);
+        time.setEditable(false);
+        top.getChildren().add(time);
 
 
-
-        
+        // for the actual message on a mesage
+        TextArea msgText = new TextArea(this.message);
+        msgText.setWrapText(true);
+        msgText.setPrefHeight(20*(this.message.length()/86));  //sets height of the TextArea to 400 pixels 
+        msgText.setPrefWidth(600);
+        msgText.setEditable(false);
+    
+        messageInfo.getChildren().addAll(top,msgText);    
         pane.getChildren().addAll(messageInfo);
-
-
-        
         
         return pane;
     }

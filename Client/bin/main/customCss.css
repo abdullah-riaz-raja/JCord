@@ -26,3 +26,35 @@
 #messaveViewBackround {
     -fx-background-color: #40444b;
 }
+
+#timeFormat {
+    -fx-background-color: #40444b;
+    -fx-text-inner-color: white;
+}
+
+.text-area .content{
+    -fx-background-color: #40444b;
+  }
+
+
+.text-area{
+    -fx-font-family: "Whitney";
+    -fx-font-size: 13;
+    -fx-text-fill: #ffffff;
+    -fx-display-caret:false;
+    -fx-text-box-border: transparent;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+} 
+
+.text-field:focused {
+    -fx-focus-color: transparent;
+    -fx-text-box-border: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.text-area > .scroll-pane{
+    -fx-vbar-policy:never;
+    -fx-focus-color: transparent;
+}
+    
