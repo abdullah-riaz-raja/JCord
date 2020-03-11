@@ -36,7 +36,7 @@ public class MessageViewers implements Serializable{
     public String getMessage(){
         return this.message;
     }
-
+    
     Node generateMessageViewNode() {
         HBox pane = new HBox();
         pane.setSpacing(10.0);

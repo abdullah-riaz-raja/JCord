@@ -10,18 +10,11 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Launcher extends Application{
+public class Launcher {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-    }
     public static void main(String[] args) {
         CommunicationClient server = new CommunicationClient("0.0.0.0", 2542);
-        
-        
         server.establishConnection();
-        
         Date time = new Date(System.currentTimeMillis());
 
         User userTest = new User("Coleman2247", new Image("TestPreDataBase/index.jpeg"));
@@ -34,7 +27,7 @@ public class Launcher extends Application{
         } catch (IOException e) {
             e.printStackTrace();
         }
-    
+        
     }
 }
 

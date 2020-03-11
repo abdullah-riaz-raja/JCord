@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javafx.scene.image.Image;
 
-public class User implements Serializable {
+public class User implements Serializable{
     private String userName;
     private transient Image profilePicture;
     private boolean isOnline;
