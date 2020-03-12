@@ -1,4 +1,4 @@
 {
-	"destination_server": "0.0.0.0",
-	"destination_port": ""
+	"server": "0.0.0.0",
+	"port": "3105"
 }

@@ -33,6 +33,6 @@ public class Listener {
 
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         System.out.println("Starting Server");
-        new Listener(2542);
+        System.out.println(Utils.getPort("communication.json").get("port"));
     }
 }

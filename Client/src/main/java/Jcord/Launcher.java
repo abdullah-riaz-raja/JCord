@@ -7,6 +7,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -75,13 +77,16 @@ public class Launcher extends Application {
         //MessageViewers msg2 = new MessageViewers(userTest, time,"Hello THere");
 
         //pane.getChildren().addAll(msg.generateMessageViewNode(),msg2.generateMessageViewNode(),MessageCreator.GenerateMessageBox());
+        
         ScrollPane ptest = new ScrollPane();
         VBox messageViewHolder = new VBox();
+        
         for(int i =0; i <20; i++){
             Date time = new Date(System.currentTimeMillis());
             MessageViewers test = new MessageViewers(userTest, time,message);
             messageViewHolder.getChildren().add(test.generateMessageViewNode());
         }
+        
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
 
@@ -89,8 +94,7 @@ public class Launcher extends Application {
         Scene scene = new Scene(pane);
         
         scene.getStylesheets().add("customCss.css");
-
-
+      
         primaryStage.setScene(scene);
         primaryStage.show();
         
