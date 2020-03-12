@@ -1,5 +1,4 @@
 {
-	"destination_server": "",
-	"destination_port": "",
-	"protocol": "UDP"
+	"destination_server": "0.0.0.0",
+	"destination_port": ""
 }
