@@ -27,7 +27,11 @@ public class CommunicationClient {
     }
 
     public void sendMessage(MessageViewers message) throws IOException {
-        ObjectOutputStream os=new ObjectOutputStream(this.remote.getOutputStream());
+        ObjectOutputStream os = new ObjectOutputStream(this.remote.getOutputStream());
         os.writeObject(message);
+    }
+
+    class listenForNewMessage{
+        
     }
 }

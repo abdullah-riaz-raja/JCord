@@ -16,13 +16,10 @@ dependencies {
 application {
     mainClassName = 'Jcord.Launcher'
 }
-sourceSets {
-    main {
-        output.resourcesDir = java.outputDir
-    }
-}
+
 
 task server(type: JavaExec) {
+
     description = "Run Server"
     classpath = sourceSets.main.runtimeClasspath
     main = "Server.Listener"

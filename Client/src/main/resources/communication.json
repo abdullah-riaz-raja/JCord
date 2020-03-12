@@ -1,4 +1,4 @@
 {
-	"server": "0.0.0.0",
-	"port": "3105"
+	"client-remote-ip": "0.0.0.0",
+	"server-message-receive-port": "3105"
 }

@@ -90,7 +90,7 @@ public class Launcher extends Application {
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
 
-        pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox(primaryStage));
+        pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox(primaryStage,userTest));
         Scene scene = new Scene(pane);
         
         scene.getStylesheets().add("customCss.css");

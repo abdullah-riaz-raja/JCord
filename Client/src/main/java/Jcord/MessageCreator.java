@@ -1,7 +1,12 @@
 package Jcord;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
 
+import Server.Utils;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,10 +22,9 @@ import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class MessageCreator{
-    
-    
-    public static Node GenerateMessageBox(Stage stage){
+public class MessageCreator {
+
+    public static Node GenerateMessageBox(Stage stage, User user) {
         // pane is just for testing, actual class will just be functional
         HBox pane = new HBox();
 
@@ -33,15 +37,43 @@ public class MessageCreator{
         messageBox.setFont(new Font("Whitney", 12));
         messageBox.getStyleClass().add("message");
 
-       
         messageBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode() == KeyCode.ENTER)  {
+                if (event.getCode() == KeyCode.ENTER) {
                     String text = messageBox.getText();
-        
+
                     // send over sockets to main server
+
+                    HashMap<String, String> info = null;
+                    try {
+                        info = Utils.getServerInfo("communication.json");
+                    } catch (FileNotFoundException e) {
+                        // TODO Auto-generated catch block
+                        System.out.println("Could not Find communcation json when sending msg");
+                        e.printStackTrace();
+                    }
+
+                    CommunicationClient sendMsg = new CommunicationClient(info.get("client-remote-ip"),
+                            Integer.parseInt(info.get("server-message-receive-port")));
+
+                    if (sendMsg.establishConnection()) {
+                        Date time = new Date(System.currentTimeMillis());
+
+                        MessageViewers newMsg = new MessageViewers(user, time, messageBox.getText());
+
+                        // public MessageViewers(User user,Date timeSent,String msg){
+
+                        try {
+                            sendMsg.sendMessage(newMsg);
+                        } catch (IOException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
                     
+                    
+                    }
+
                     // clear text
                     messageBox.setText("");
                 }
