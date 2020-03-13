@@ -1,6 +1,5 @@
 package Jcord;
 
-import java.io.ByteArrayInputStream;
 import java.io.Serializable;
 
 import javafx.scene.image.Image;

@@ -1,8 +1,10 @@
 package Jcord;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Date;
 
+import Server.ManageDataBase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -11,6 +13,18 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+public class Launcher {
+
+    public static void main(String[] args) throws ClassNotFoundException {
+        try {
+            ManageDataBase.connect();
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+}
 
 /*
 public class Launcher extends Application{
@@ -60,7 +74,7 @@ public class Launcher extends Application{
 
 
 
-
+/*
 public class Launcher extends Application {
     
     @Override
@@ -103,3 +117,4 @@ public class Launcher extends Application {
 
 }
  
+*/
