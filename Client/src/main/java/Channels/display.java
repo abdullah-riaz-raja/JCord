@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 public class display extends Application {
     @Override // Override the start method in the Application class
     public void start(Stage primaryStage) {
+        System.out.println("Hello");
 
     }
 
