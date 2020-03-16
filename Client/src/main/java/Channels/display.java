@@ -1,7 +1,9 @@
 package Channels;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -13,7 +15,7 @@ public class display extends Application {
         BorderPane pane_frame = new BorderPane();
 
         // Allowing the nodes inside the pane
-        //pane_frame.setTop(getHBox());
+        pane_frame.setTop(createHbox());
         //pane_frame.setBottom(getVBox());
 
         Scene display_scene = new Scene(pane_frame);//placing pane in scene
@@ -21,6 +23,14 @@ public class display extends Application {
         primaryStage.setScene(display_scene);// placing scene into the stage
         primaryStage.show();// displaying stage
 
+    }
+    //Hbox
+    public HBox createHbox(){
+        HBox hBox = new HBox(15);
+        hBox.setPadding(new Insets(15,15,15,15));
+        hBox.setStyle("-fx-background-color: grey");
+        hBox.getChildren().add(new Label("Channel List"));
+        return hBox;
     }
 
     /**
