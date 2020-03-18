@@ -47,6 +47,8 @@ public class display extends Application {
             vBox.getChildren().add(channel);
         }
         return vBox;
+
+
     }
 
     /**
