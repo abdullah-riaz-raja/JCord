@@ -2,8 +2,10 @@ package Channels;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -16,7 +18,9 @@ public class css_styling extends Application {
         stage.setHeight(500);
 
         VBox root = new VBox();
-
+        StackPane pane = new StackPane();
+        Button btOK = new Button("one");
+        pane.getChildren().add(btOK);
 
         Label label1 = new Label("This is a cool.");
         root.getChildren().addAll(label1);

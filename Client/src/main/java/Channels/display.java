@@ -38,7 +38,7 @@ public class display extends Application {
     private VBox createVBox(){
         VBox vBox = new VBox();
         vBox.setPadding(new Insets(150,5,5,5));
-        vBox.setStyle("-fx-background-color: grey");
+        vBox.getStylesheets().add("customCss.css");
         Label[] channels = {new Label("Normal chat window"),
                 new Label("Voice chat window")};
 
