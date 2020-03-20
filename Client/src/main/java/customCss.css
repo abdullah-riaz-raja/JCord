@@ -1,7 +1,14 @@
 .root{
     -fx-background-color: #40444b;
     -fx-font-family: 'DejaVu Serif', Georgia, "Times New Roman", Times, serif;
-    -fx-font-size: 10px;
+    -fx-font-size: 25px;
+    -fx-font-weight: bold;
+}
+
+.customize_label{
+    -fx-background-color: blue;
+    -fx-font-size: 30px;
+    -fx-font-family: "Adobe Devanagari";
 }
 
 .button{
