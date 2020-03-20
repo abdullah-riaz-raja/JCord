@@ -20,6 +20,7 @@ public class MessageViewers implements Serializable{
     public User user;
     private Date timeSent;
     private String message;
+    int messageId;
 
     public MessageViewers(User user,Date timeSent,String msg){
         this.user = user;

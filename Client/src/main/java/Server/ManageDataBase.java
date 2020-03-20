@@ -1,45 +1,50 @@
 package Server;
 
+
+import Jcord.MessageViewers;
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+
+
 
 public class ManageDataBase {
 
-    /*
-    Connection getConnect(){
+    // Grabbing the databse driver
+    private final String DB_DRIVER = "org.h2.Driver";
 
+    // String that tells the driver the type and location of the
+    // file to be accessed
+    private final String DB_CONNECTION = "jdbc:h2:./src/main/resources/Jcord";
+
+
+    // The database user and password,
+    // is only the default user
+    private final String DB_USER = "sa";
+    private final String DB_PASSWORD = "";
+
+
+    public void insertMessage(MessageViewers message){
 
     }
-    */
-    public static void connect() throws SQLException, ClassNotFoundException {
 
-        try (Connection connection = DriverManager.getConnection("jdbc:postgresql://cole-mollica.com:3105/Jcord",
-                "postgres", "postgres")) {
 
-            System.out.println("Java JDBC PostgreSQL Example");
-            // When this class first attempts to establish a connection, it automatically
-            // loads any JDBC 4.0 drivers found within
-            // the class path. Note that your application must manually load any JDBC
-            // drivers prior to version 4.0.
-            // Class.forName("org.postgresql.Driver");
-
-            System.out.println("Connected to PostgreSQL database!");
-
-            Statement statement = connection.createStatement();
-            System.out.println("Reading car records...");
-            //ResultSet resultSet = statement.executeQuery("SELECT * FROM public.cars");
-            //while (resultSet.next()) {
-              //  System.out.printf("%-30.30s  %-30.30s%n", resultSet.getString("model"), resultSet.getString("price"));
-            //}
-
-        } catch (SQLException e) {
-            System.out.println("Connection failure.");
-            e.printStackTrace();
+    public Connection getDBConnection() {
+        Connection dbConnection = null;
+        try {
+            Class.forName(DB_DRIVER);
+        } catch (ClassNotFoundException e) {
+            System.out.println(e.getMessage());
         }
-    
+        try {
+            dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER, DB_PASSWORD);
+            return dbConnection;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return dbConnection;
     }
     
 }

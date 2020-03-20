@@ -4,30 +4,32 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
+import java.util.ArrayList;
 
 import Jcord.MessageViewers;
 
-class listenForMessage implements Runnable{
-    int port;
+class ServerComms{
+    int newMessagePort;
+    int newMessageRequestPort;
     ServerSocket socket;
     Socket listen;
+    ArrayList<MessageViewers> sessionMessages = new ArrayList<MessageViewers>();
 
-    public listenForMessage (int port){
-         this.port = port;
+    public ServerComms(int newMessagePort,int newMessageRequestPort){
+         this.newMessagePort = newMessagePort;
+         this.newMessageRequestPort = newMessageRequestPort;
     }
 
-    @Override
-    public void run() {
-       
+    public void listenForNewMessage() {
         try {
-            this.socket = new ServerSocket(this.port);
+            this.socket = new ServerSocket(this.newMessagePort);
             while(true){
                 listen = this.socket.accept();
                 ObjectInputStream is= new ObjectInputStream(this.listen.getInputStream());
-                MessageViewers received = (MessageViewers)is.readObject();
+                sessionMessages.add((MessageViewers)is.readObject());
                 
-                System.out.println(received.getMessage());
+                
+                System.out.println(sessionMessages.get((sessionMessages.size()-1)).getMessage());
             }
             //this.listen.close();
     
@@ -35,35 +37,44 @@ class listenForMessage implements Runnable{
             e.printStackTrace();
         }
     }
-}
-public class Listener {
-    int port;
-    ServerSocket socket;
-    Socket listen;
 
-    /*
-    public void listenForMessage(int port) throws IOException, ClassNotFoundException {
-        this.port = port;
-        try {
-            this.socket = new ServerSocket(this.port);
-            listen = this.socket.accept();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    
-    
-        ObjectInputStream is= new ObjectInputStream(this.listen.getInputStream());
-        MessageViewers received = (MessageViewers)is.readObject();
-        
-        System.out.println(received.getDate());
-
-        this.listen.close();
+    public void getNewestId(){
+        // send over network 
+        int newId = this.sessionMessages.size()-1;
     }
-    */
+
+    public void listenForNewMessageRequest(){
+
+    }
+
+}
+
+public class Listener {
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         int messageReceivePort = Integer.parseInt(Utils.getServerInfo("communication.json").get("server-message-receive-port"));
-        Thread mesageListen = new Thread(new listenForMessage(messageReceivePort));
-        mesageListen.start();;
+        int checkForNew = Integer.parseInt(Utils.getServerInfo("communication.json").get("check-for-new-message"));
+        
+        ServerComms coms = new ServerComms(messageReceivePort,checkForNew);
+        
+        Thread mesageListen = new Thread(){
+            @Override
+            public void run() {
+                coms.listenForNewMessage();
+            }
+        };
 
+        Thread sendMsg = new Thread(){
+            @Override
+            public void run() {
+                coms.listenFoeNewMessage();
+            }
+        };  
+        
+        
+        
+        
+        
+        mesageListen.start();
+        sendMsg.start();
     }
 }

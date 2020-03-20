@@ -1,10 +1,10 @@
 package Jcord;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.Date;
+import java.util.HashMap;
 
-import Server.ManageDataBase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -14,27 +14,23 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class Launcher {
-
-    public static void main(String[] args) throws ClassNotFoundException {
-        try {
-            ManageDataBase.connect();
-        } catch (SQLException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-}
+import Server.Utils;
 
 /*
-public class Launcher extends Application{
+public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
 
     }
-    public static void main(String[] args) {
-        CommunicationClient server = new CommunicationClient("0.0.0.0", 2542);
+
+    public static void main(String[] args) throws FileNotFoundException {
+        HashMap <String,String> ipInfo = Utils.getServerInfo("communication.json");
+        
+        String ip = ipInfo.get("server-remote-ip");
+        int port = Integer.parseInt(ipInfo.get("server-message-receive-port"));
+
+        CommunicationClient server = new CommunicationClient(ip, port);
         
         
         server.establishConnection();
@@ -54,27 +50,11 @@ public class Launcher extends Application{
     
     }
 }
+
+
 */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
 public class Launcher extends Application {
     
     @Override
@@ -113,8 +93,5 @@ public class Launcher extends Application {
         primaryStage.show();
         
     }
-   
-
 }
  
-*/

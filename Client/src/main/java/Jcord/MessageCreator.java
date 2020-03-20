@@ -49,19 +49,18 @@ public class MessageCreator {
                     try {
                         info = Utils.getServerInfo("communication.json");
                     } catch (FileNotFoundException e) {
-                        // TODO Auto-generated catch block
                         System.out.println("Could not Find communcation json when sending msg");
                         e.printStackTrace();
                     }
 
-                    CommunicationClient sendMsg = new CommunicationClient(info.get("client-remote-ip"),
+                    CommunicationClient sendMsg = new CommunicationClient(info.get("server-remote-ip"),
                             Integer.parseInt(info.get("server-message-receive-port")));
 
                     if (sendMsg.establishConnection()) {
                         Date time = new Date(System.currentTimeMillis());
 
                         MessageViewers newMsg = new MessageViewers(user, time, messageBox.getText());
-
+                        newMsg.messageId = ;
                         // public MessageViewers(User user,Date timeSent,String msg){
 
                         try {
@@ -69,11 +68,8 @@ public class MessageCreator {
                         } catch (IOException e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
-                        }
-                    
-                    
+                        }                    
                     }
-
                     // clear text
                     messageBox.setText("");
                 }
