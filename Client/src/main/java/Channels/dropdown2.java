@@ -30,13 +30,13 @@ public class dropdown2 extends Application {
 
         //getItems returns the ObservableList object which you can add items to
 
-        choiceBox.getItems().add("Channel 1");
+        choiceBox.getItems().add("Chat channel");
 
-        choiceBox.getItems().add("Channel 2");
+        choiceBox.getItems().add("Voice chat channel");
 
         //Set a default value
 
-        choiceBox.setValue("Channel 1");
+        choiceBox.setValue("Chat channel");
         button.setOnAction(e -> getChoice(choiceBox));
 
 
