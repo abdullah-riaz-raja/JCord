@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.application.Platform;
 
 import Server.Utils;
 
@@ -74,17 +75,48 @@ public class Launcher extends Application {
         
         ScrollPane ptest = new ScrollPane();
         VBox messageViewHolder = new VBox();
-        
-        for(int i =0; i <20; i++){
+
+        // Establishing Server Info Path
+        HashMap<String, String> info = null;
+        try {
+            info = Utils.getServerInfo("communication.json");
+        } catch (FileNotFoundException e) {
+            System.out.println("Could not Find communcation json when sending msg");
+            e.printStackTrace();
+        }
+
+        // Connecting To Server
+        CommunicationClient handler = new CommunicationClient(info.get("server-remote-ip"),
+                Integer.parseInt(info.get("server-message-receive-port")),
+                textMessage ->
+                {
+                    Platform.runLater(()->{
+                        Date time = new Date(System.currentTimeMillis());
+                        Message test = (Message) textMessage;
+                        messageViewHolder.getChildren().add(test.generateMessageViewNode());
+                    });
+                },
+                voiceMessage ->
+                {
+
+                });
+
+        new Thread(handler).start();
+
+
+        /* Message Filler
+        for(int i =0; i <1; i++){
             Date time = new Date(System.currentTimeMillis());
-            MessageViewers test = new MessageViewers(userTest, time,message);
+            Message test = new Message(userTest, time,message);
             messageViewHolder.getChildren().add(test.generateMessageViewNode());
         }
+        */
+
         
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
 
-        pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox(primaryStage,userTest));
+        pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox(primaryStage,userTest,handler));
         Scene scene = new Scene(pane);
         
         scene.getStylesheets().add("customCss.css");
