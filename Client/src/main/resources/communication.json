@@ -1,0 +1,6 @@
+{
+	"server-remote-ip": "0.0.0.0",
+	"server-message-receive-port": "3105",
+	"check-for-new-message": "3106"
+
+}

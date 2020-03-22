@@ -1,0 +1,187 @@
+03-13 02:42:45 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE TABLE MESSAGES "; expected "("; SQL statement:
+create table messages [42001-148]
+03-13 02:54:51 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Index "MESSAGEINDEX" already exists; SQL statement:
+create index messageIndex on messages (id, contents, sender, time) [42111-148]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.command.ddl.CreateIndex.update(CreateIndex.java:76)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:69)
+	at org.h2.command.Command.executeUpdate(Command.java:200)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:178)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1322)
+	at org.h2.server.web.WebApp.query(WebApp.java:1010)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:973)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:976)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+03-13 02:59:30 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "CREATE UNIQUE INDEX IN USERS[*] (ID) "; expected "ON"; SQL statement:
+create unique index in users (id) [42001-148]
+03-13 03:03:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO MESSAGES (CONTENTS, ID, SENDER, MEDIA, TIME) VALUES (""f"", 1, ""cole"", ,[*] ) "; expected "), DEFAULT, NOT, EXISTS, SELECT, FROM"; SQL statement:
+insert into messages (contents, id, sender, media, time) values ("f", 1, "cole", , ) [42001-148]
+03-13 03:03:40 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Column "f" not found; SQL statement:
+insert into messages (contents, id, sender, media, time) values ("f", 1, "cole", 0, 0) [42122-148]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:126)
+	at org.h2.command.dml.Insert.prepare(Insert.java:230)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:425)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1056)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:165)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1322)
+	at org.h2.server.web.WebApp.query(WebApp.java:1010)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:973)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:976)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+03-13 03:04:01 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Hexadecimal string with odd number of characters: "0"; SQL statement:
+insert into messages (contents, id, sender, media, time) values ('f', 1, 'cole', 0, 0) -- ('f', 1, 'cole', 0, 0) [90003-148]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.util.StringUtils.convertStringToBytes(StringUtils.java:952)
+	at org.h2.value.Value.convertTo(Value.java:822)
+	at org.h2.table.Column.convert(Column.java:146)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:114)
+	at org.h2.command.dml.Insert.update(Insert.java:86)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:69)
+	at org.h2.command.Command.executeUpdate(Command.java:200)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:178)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1322)
+	at org.h2.server.web.WebApp.query(WebApp.java:1010)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:973)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:976)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+03-13 03:04:09 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Hexadecimal string with odd number of characters: "0"; SQL statement:
+insert into messages (contents, id, sender, media, time) values ('f', 1, 'cole', 00, 0) -- ('f', 1, 'cole', 0, 0) [90003-148]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.util.StringUtils.convertStringToBytes(StringUtils.java:952)
+	at org.h2.value.Value.convertTo(Value.java:822)
+	at org.h2.table.Column.convert(Column.java:146)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:114)
+	at org.h2.command.dml.Insert.update(Insert.java:86)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:69)
+	at org.h2.command.Command.executeUpdate(Command.java:200)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:178)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1322)
+	at org.h2.server.web.WebApp.query(WebApp.java:1010)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:973)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:976)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+03-13 03:04:14 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Hexadecimal string with odd number of characters: "0"; SQL statement:
+insert into messages (contents, id, sender, media, time) values ('f', 1, 'cole', 00, 00) -- ('f', 1, 'cole', 0, 0) [90003-148]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.util.StringUtils.convertStringToBytes(StringUtils.java:952)
+	at org.h2.value.Value.convertTo(Value.java:822)
+	at org.h2.table.Column.convert(Column.java:146)
+	at org.h2.command.dml.Insert.insertRows(Insert.java:114)
+	at org.h2.command.dml.Insert.update(Insert.java:86)
+	at org.h2.command.CommandContainer.update(CommandContainer.java:69)
+	at org.h2.command.Command.executeUpdate(Command.java:200)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:178)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1322)
+	at org.h2.server.web.WebApp.query(WebApp.java:1010)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:973)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:976)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+03-13 03:04:29 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Column "F" not found; SQL statement:
+insert into messages (contents, id, sender, media, time) values ('f', 1, 'cole', f, f) [42122-148]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:126)
+	at org.h2.command.dml.Insert.prepare(Insert.java:230)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:425)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1056)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:165)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1322)
+	at org.h2.server.web.WebApp.query(WebApp.java:1010)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:973)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:976)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+03-13 03:04:56 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Column "F" not found; SQL statement:
+insert into messages (id, contents, sender, media, time) values ('f', 1, 'cole', f, f) [42122-148]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:126)
+	at org.h2.command.dml.Insert.prepare(Insert.java:230)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:425)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1056)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:165)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1322)
+	at org.h2.server.web.WebApp.query(WebApp.java:1010)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:973)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:976)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+03-13 03:05:06 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "INSERT INTO MESSAGES (ID, CONTENTS, SENDER, MEDIA, TIME) VALUES ('f', 1, 'cole', ,[*] ) "; expected "), DEFAULT, NOT, EXISTS, SELECT, FROM"; SQL statement:
+insert into messages (id, contents, sender, media, time) values ('f', 1, 'cole', , ) [42001-148]
+03-13 03:05:21 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Column "NONE" not found; SQL statement:
+insert into messages (id, contents, sender, media, time) values ('f', 1, 'cole', NONE, NULL) [42122-148]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:327)
+	at org.h2.message.DbException.get(DbException.java:167)
+	at org.h2.message.DbException.get(DbException.java:144)
+	at org.h2.expression.ExpressionColumn.optimize(ExpressionColumn.java:126)
+	at org.h2.command.dml.Insert.prepare(Insert.java:230)
+	at org.h2.command.Parser.prepare(Parser.java:202)
+	at org.h2.command.Parser.prepareCommand(Parser.java:214)
+	at org.h2.engine.Session.prepareLocal(Session.java:425)
+	at org.h2.engine.Session.prepareCommand(Session.java:374)
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1056)
+	at org.h2.jdbc.JdbcStatement.executeInternal(JdbcStatement.java:165)
+	at org.h2.jdbc.JdbcStatement.execute(JdbcStatement.java:153)
+	at org.h2.server.web.WebApp.getResult(WebApp.java:1322)
+	at org.h2.server.web.WebApp.query(WebApp.java:1010)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:973)
+	at org.h2.server.web.WebApp$1.next(WebApp.java:976)
+	at org.h2.server.web.WebThread.process(WebThread.java:166)
+	at org.h2.server.web.WebThread.run(WebThread.java:93)
+	at java.base/java.lang.Thread.run(Thread.java:834)
+03-13 03:05:34 jdbc[2]: exception
+org.h2.jdbc.JdbcSQLException: Data conversion error converting "'f' (ID INT)"; SQL statement:
+insert into messages (id, contents, sender, media, time) values ('f', 1, 'cole', NULL, NULL) -- ('f', 1, 'cole', NULL, NULL) [90021-148]
