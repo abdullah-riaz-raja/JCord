@@ -46,6 +46,14 @@ public class Message implements Serializable{
         return this.messageType;
     }
 
+    public int getMessageId(){
+        return this.messageId;
+    }
+
+    public void setMessageId(int num){
+        this.messageId = num;
+    }
+
     Node generateMessageViewNode() {
         HBox pane = new HBox();
         pane.setSpacing(10.0);

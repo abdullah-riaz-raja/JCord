@@ -6,6 +6,7 @@ import java.net.Socket;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
 public class CommunicationClient implements Runnable{
@@ -16,6 +17,14 @@ public class CommunicationClient implements Runnable{
     private int port;
     private Consumer<Message> chatAppender;
     private Consumer<Message> voicePlay;
+
+    public CommunicationClient(String host, int port) throws IOException {
+        this.ip = host;
+        this.port = port;
+        this.remote = new Socket(this.ip, this.port);
+        outputStream = new ObjectOutputStream(this.remote.getOutputStream());
+        inputStream =  new ObjectInputStream(this.remote.getInputStream());
+    }
 
     public CommunicationClient(String host, int port, Consumer<Message> chatAppender, Consumer<Message> voicePlay) {
         this.ip = host;
@@ -38,12 +47,15 @@ public class CommunicationClient implements Runnable{
                 Message message = (Message) inputStream.readObject();
                 if (message != null)
                 {
+                    System.out.println("Message Not Null");
                     switch(message.getMessageType())
                     {
                         case MESSAGE:
+                            System.out.println("Of Type Message");
                             chatAppender.accept(message);
                             break;
                         case VOICEMESSAGE:
+                            System.out.println("Of Type Voice");
                             voicePlay.accept(message);
                             break;
                     }
@@ -81,6 +93,19 @@ public class CommunicationClient implements Runnable{
             e.printStackTrace();
             System.out.println("Failed to send message.");
         }
+    }
+
+    public ArrayList<Message> getNewMessage(int id) throws IOException, ClassNotFoundException {
+        outputStream.writeObject(id);
+        outputStream.flush();
+        Object response = inputStream.readObject();
+        
+        ArrayList<Message> newMsg = new ArrayList<Message>();
+        if (response instanceof ArrayList){
+            newMsg = (ArrayList<Message>)response;
+        }
+        
+        return newMsg;
     }
 
     public void closeConnection()
