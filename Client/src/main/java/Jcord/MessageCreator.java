@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.io.Serializable;
 
 import Server.Utils;
 import javafx.event.EventHandler;
@@ -21,10 +22,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.scene.layout.VBox;
 
 public class MessageCreator {
-
-    public static Node GenerateMessageBox(Stage stage, User user) {
+    public static Node GenerateMessageBox(Stage stage, User user,CommunicationClient handler) {
         // pane is just for testing, actual class will just be functional
         HBox pane = new HBox();
 
@@ -40,43 +41,29 @@ public class MessageCreator {
         messageBox.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
+
                 if (event.getCode() == KeyCode.ENTER) {
                     String text = messageBox.getText();
 
-                    // send over sockets to main server
-
-                    HashMap<String, String> info = null;
-                    try {
-                        info = Utils.getServerInfo("communication.json");
-                    } catch (FileNotFoundException e) {
-                        System.out.println("Could not Find communcation json when sending msg");
-                        e.printStackTrace();
-                    }
-
-                    CommunicationClient sendMsg = new CommunicationClient(info.get("server-remote-ip"),
-                            Integer.parseInt(info.get("server-message-receive-port")));
-
-                    if (sendMsg.establishConnection()) {
+                    if (handler.establishConnection()) {
                         Date time = new Date(System.currentTimeMillis());
-
-                        MessageViewers newMsg = new MessageViewers(user, time, messageBox.getText());
-                        newMsg.messageId = ;
+                        Message newMsg = new Message(user, time, messageBox.getText());
+                        newMsg.messageId = 0;
                         // public MessageViewers(User user,Date timeSent,String msg){
 
                         try {
-                            sendMsg.sendMessage(newMsg);
-                        } catch (IOException e) {
+                            handler.sendMessage(newMsg);
+                        } catch (Exception e) {
                             // TODO Auto-generated catch block
                             e.printStackTrace();
-                        }                    
+                        }
                     }
                     // clear text
                     messageBox.setText("");
                 }
+
             }
         });
-
-
         
         ImageView addIcon= new ImageView (new Image("Images/addButton.png"));
         addIcon.setFitHeight(30);
@@ -105,6 +92,4 @@ public class MessageCreator {
         
         return pane;
     }
-
-
 }

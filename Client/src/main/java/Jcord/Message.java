@@ -15,17 +15,19 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class MessageViewers implements Serializable{
+public class Message implements Serializable{
 
     public User user;
     private Date timeSent;
     private String message;
+    MessageType messageType;
     int messageId;
 
-    public MessageViewers(User user,Date timeSent,String msg){
+    public Message(User user,Date timeSent,String message){
         this.user = user;
         this.timeSent = timeSent;
-        this.message = msg;
+        this.message = message;
+        this.messageType = MessageType.MESSAGE;
     }
 
     public User getUser(){
@@ -38,6 +40,10 @@ public class MessageViewers implements Serializable{
 
     public String getMessage(){
         return this.message;
+    }
+
+    public MessageType getMessageType(){
+        return this.messageType;
     }
 
     Node generateMessageViewNode() {

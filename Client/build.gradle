@@ -22,5 +22,5 @@ task server(type: JavaExec) {
 
     description = "Run Server"
     classpath = sourceSets.main.runtimeClasspath
-    main = "Server.Listener"
+    main = "Server.Server"
 }

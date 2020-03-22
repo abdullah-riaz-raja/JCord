@@ -1,7 +1,7 @@
 package Server;
 
 
-import Jcord.MessageViewers;
+import Jcord.Message;
 
 
 import java.sql.Connection;
@@ -26,7 +26,7 @@ public class ManageDataBase {
     private final String DB_PASSWORD = "";
 
 
-    public void insertMessage(MessageViewers message){
+    public void insertMessage(Message message){
 
     }
 
