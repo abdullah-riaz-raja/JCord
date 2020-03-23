@@ -1,14 +1,25 @@
 package Channels;
 /*References
 * https://www.youtube.com/watch?v=EO62ud_q9s0
-* https://stackoverflow.com/questions/36566197/javafx-button-with-transparent-background
+*
+* Chuss, T. C. T. (1966, February 1). JavaFX Button with transparent background.
+* Retrieved from https://stackoverflow.com/questions/36566197/javafx-button-with-transparent-background
+*
 * https://www.youtube.com/watch?v=0FVXRp0vmVg&t=190s
 * https://www.youtube.com/watch?v=X_HS2hLneto
 * https://www.youtube.com/watch?v=Rf3QrfGA6nE
-* https://www.javacodegeeks.com/2012/07/javafx-20-layout-panes-hbox-and-vbox.html
-* http://fxexperience.com/2011/12/styling-fx-buttons-with-css/
-* https://stackoverflow.com/questions/27894945/how-do-i-resize-an-imageview-image-in-javafx
-* https://stackoverflow.com/questions/12678197/add-image-to-a-button-at-a-specific-position-javafx
+*
+* Damm, S. (2015, February 24). JavaFX 2.0 Layout Panes - HBox and VBox: Java Code Geeks - 2020.
+* Retrieved from https://www.javacodegeeks.com/2012/07/javafx-20-layout-panes-hbox-and-vbox.html
+*
+* Potts, J., Potts, J., Bair, R., Potts, J., Bair, R., Potts, J., … Bair, R. (2011, December 20).
+* Styling FX Buttons with CSS. Retrieved from http://fxexperience.com/2011/12/styling-fx-buttons-with-css/
+*
+* JeremyJeremy. (1964, November 1). How do I resize an imageview image in javafx?
+* Retrieved from https://stackoverflow.com/questions/27894945/how-do-i-resize-an-imageview-image-in-javafx
+*
+* AdilAdil 3, & jewelseajewelsea 122k1010 gold badges304304 silver badges343343 bronze badges. (1962, August 1). Add image to a button at a specific position JavaFX.
+* Retrieved from https://stackoverflow.com/questions/12678197/add-image-to-a-button-at-a-specific-position-javafx
 * */
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -35,7 +46,7 @@ public class hbox extends Application {
         //pane_frame.setBottom(createVBox());
         root.getChildren().addAll(Hbox_label(),createHbox(),createHbox2());
         root.getChildren().addAll();
-        Scene display_scene = new Scene(root,310,600);//placing pane in scene
+        Scene display_scene = new Scene(root,330,650);//placing pane in scene
         primaryStage.setTitle("Display Channels");// setting stage title
         display_scene.getStylesheets().add("customCss.css");
         primaryStage.setScene(display_scene);// placing scene into the stage
@@ -43,10 +54,11 @@ public class hbox extends Application {
 
     }
 
+
     // HBox(Label), channel list
     private HBox Hbox_label(){
         HBox hBox0 = new HBox(50);
-        ImageView arrow = new ImageView("red.png");
+        ImageView arrow = new ImageView("bottom.png");
         Label label1 = new Label("CHANNEL LIST", arrow);
         hBox0.getChildren().addAll(label1);
         return hBox0;
@@ -54,7 +66,7 @@ public class hbox extends Application {
     //Hbox(button 1)
     private HBox createHbox(){
         HBox hBox1 = new HBox(50);
-        Image hashtag = new Image("hashtag2.png");
+        Image hashtag = new Image("new_hash.png");
         //hBox.setPadding(new Insets(15,15,15,15));
         ImageView iv2 = new ImageView();
         iv2.setImage(hashtag);
@@ -69,7 +81,7 @@ public class hbox extends Application {
     //Hbox(button 2)
     private HBox createHbox2(){
         HBox hBox2 = new HBox(50);
-        Image hashtag = new Image("hashtag2.png");
+        Image hashtag = new Image("speaker.png");
         //hBox.setPadding(new Insets(15,15,15,15));
         ImageView iv3 = new ImageView();
         iv3.setImage(hashtag);
@@ -82,6 +94,23 @@ public class hbox extends Application {
         return hBox2;
     }
 
+    /*
+    //Hbox(button 3)
+    private HBox createHbox3(){
+        HBox hBox2 = new HBox(50);
+        Image hashtag = new Image("arrow4.png");
+        //hBox.setPadding(new Insets(15,15,15,15));
+        ImageView iv4 = new ImageView();
+        iv4.setImage(hashtag);
+        iv4.setFitWidth(35);
+        iv4.setPreserveRatio(true);
+        iv4.setSmooth(true);
+        iv4.setCache(true);
+        Button button = new Button("Display Channels", iv4);
+        hBox2.getChildren().add(button);
+        return hBox2;
+    }
+    */
     /**
      * The main method is only needed for the IDE with limited
      * JavaFX support. Not needed for running from the command line.
