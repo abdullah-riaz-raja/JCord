@@ -37,7 +37,7 @@
     -fx-font-size: 1.1em;
 }
 
-#record-sales:hover {
+.button:hover {
     -fx-font-weight: bold;
     -fx-background-color: white;
     -fx-background-color:
@@ -50,7 +50,7 @@
 .button:pressed{
     -fx-font-weight: bold;
     -fx-background-color: white;
-    //-fx-rotate: 5;
+    -fx-rotate: 5;
 }
 
 #record-sales Text {
