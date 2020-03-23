@@ -54,7 +54,6 @@ public class hbox extends Application {
 
     }
 
-
     // HBox(Label), channel list
     private HBox Hbox_label(){
         HBox hBox0 = new HBox(50);
