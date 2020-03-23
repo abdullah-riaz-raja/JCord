@@ -19,7 +19,7 @@ public class Server {
     private static ArrayList<Message> sessionMessages = new ArrayList<Message>();
     private static ReentrantLock lock = new ReentrantLock();
     public static void main(String[] args) throws ClassNotFoundException, IOException {
-        ExecutorService executor = Executors.newFixedThreadPool(2);
+        ExecutorService executor = Executors.newCachedThreadPool();
         
         // Initialize Server Socket
         ServerSocket serverSocket = new ServerSocket(
