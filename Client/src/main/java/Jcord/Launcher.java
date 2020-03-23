@@ -145,17 +145,18 @@ public class Launcher extends Application {
                 // TODO Auto-generated method stub
                 Platform.runLater(() -> {
                     try {
-                        ArrayList<Message> newMsg = this.currentClient.handler
-                                .getNewMessage(currentClient.newestMessageId);
-                        Integer oldId = currentClient.newestMessageId; 
-                        currentClient.newestMessageId = newMsg.get(newMsg.size()-1).getMessageId();
-                        if(oldId < currentClient.newestMessageId){
+                        ArrayList<Message> newMsg = this.currentClient.handler.getNewMessage(currentClient.newestMessageId);
+                           
+                            int currentId = currentClient.newestMessageId;
+                            
                             for (Message i : newMsg) {
                                 this.currentClient.messageViewHolder.getChildren().add(i.generateMessageViewNode());
                                 System.out.println(i.getMessage());
-                            }
+                                currentId = i.getMessageId();
+                            
                         }
-                    } catch (ClassNotFoundException | IOException e) {
+                            currentClient.newestMessageId = currentId;
+                    }catch (ClassNotFoundException | IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }

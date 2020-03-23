@@ -40,7 +40,7 @@ public class Server {
         private ObjectOutputStream outputStream;
         private ObjectInputStream inputStream;
         private User user;
-
+        
         public ClientHandler(Socket socket) {
             this.socket = socket;
         }
@@ -58,8 +58,8 @@ public class Server {
 
                     if (input instanceof Message) {
                         Message message = (Message) input;
-                        message.setMessageId(sessionMessages.size());
                         sessionMessages.add(message);
+                        message.setMessageId(sessionMessages.size());
                         //outputStream.writeObject(sessionMessages.size());
                         /*
                          * switch (message.getMessageType()) { case MESSAGE:
@@ -72,6 +72,7 @@ public class Server {
                         Integer id = (Integer)input;
                         System.out.println(id);
                         outputStream.writeObject(returnMessages(id));
+                        //outputStream.flush();
                     }
                 }
             } catch (Exception e) {
