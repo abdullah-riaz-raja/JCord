@@ -15,7 +15,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-public class Message implements Serializable{
+public class Message implements Serializable {
 
     public User user;
     private Date timeSent;

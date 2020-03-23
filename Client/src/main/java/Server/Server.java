@@ -6,6 +6,9 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Vector;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.locks.ReentrantLock;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import Jcord.User;
@@ -14,8 +17,10 @@ import Jcord.MessageType.*;
 
 public class Server {
     private static ArrayList<Message> sessionMessages = new ArrayList<Message>();
-
+    private static ReentrantLock lock = new ReentrantLock();
     public static void main(String[] args) throws ClassNotFoundException, IOException {
+        ExecutorService executor = Executors.newFixedThreadPool(2);
+        
         // Initialize Server Socket
         ServerSocket serverSocket = new ServerSocket(
                 Integer.parseInt(Utils.getServerInfo("communication.json").get("server-message-receive-port")));
@@ -24,14 +29,17 @@ public class Server {
             // Listens for a new request
             while (!serverSocket.isClosed()) {
                 // Creates a new thread to handle request
-                Thread newClient = new Thread(new ClientHandler(serverSocket.accept()));
-                newClient.start();
+                executor.submit(new ClientHandler(serverSocket.accept()));
+                //Thread newClient = new Thread(new ClientHandler(serverSocket.accept()));
+                //newClient.start();
             }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            executor.shutdown();
             // Close Socket
             serverSocket.close();
+            
         }
     }
 
@@ -41,12 +49,14 @@ public class Server {
         private ObjectInputStream inputStream;
         private User user;
         
+
         public ClientHandler(Socket socket) {
             this.socket = socket;
         }
 
         public void run() {
             // Process Request
+            System.out.println("New Thread");
             try {
                 socket.setTcpNoDelay(true);
                 outputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -58,8 +68,12 @@ public class Server {
 
                     if (input instanceof Message) {
                         Message message = (Message) input;
+                        message.setMessageId(sessionMessages.size()+1);
+
+                        lock.lock();
                         sessionMessages.add(message);
-                        message.setMessageId(sessionMessages.size());
+                        lock.unlock();
+
                         //outputStream.writeObject(sessionMessages.size());
                         /*
                          * switch (message.getMessageType()) { case MESSAGE:
@@ -71,7 +85,10 @@ public class Server {
                     }else if(input instanceof Integer){
                         Integer id = (Integer)input;
                         System.out.println(id);
-                        outputStream.writeObject(returnMessages(id));
+
+                        lock.lock();
+                        outputStream.writeObject(new ArrayList<Message>(sessionMessages.subList(id, sessionMessages.size())));
+                        lock.unlock();
                         //outputStream.flush();
                     }
                 }
@@ -100,17 +117,11 @@ public class Server {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-            }
-        }
 
-        private ArrayList<Message> returnMessages(int id) {
-            ArrayList<Message> requestedMessages = new ArrayList<Message>();
-            
-            for(int i=id; i<sessionMessages.size(); i++){
-                requestedMessages.add(sessionMessages.get(i));
+                if (lock.isHeldByCurrentThread()){
+                    lock.unlock();
+                }
             }
-            return requestedMessages;
-    
         }
     }
 }

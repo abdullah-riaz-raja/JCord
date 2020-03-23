@@ -19,43 +19,7 @@ import javafx.application.Platform;
 
 import Server.Utils;
 
-/*
-public class Launcher extends Application {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        HashMap <String,String> ipInfo = Utils.getServerInfo("communication.json");
-        
-        String ip = ipInfo.get("server-remote-ip");
-        int port = Integer.parseInt(ipInfo.get("server-message-receive-port"));
-
-        CommunicationClient server = new CommunicationClient(ip, port);
-        
-        
-        server.establishConnection();
-        
-        Date time = new Date(System.currentTimeMillis());
-
-        User userTest = new User("Coleman2247", new Image("TestPreDataBase/index.jpeg"));
-        String message = new String("Hello");
-
-        MessageViewers test = new MessageViewers(userTest, time, message);
-        
-        try {
-            server.sendMessage(test);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    
-    }
-}
-
-
-*/
 
 public class Launcher extends Application {
     DataInputStream fromServer = null;
