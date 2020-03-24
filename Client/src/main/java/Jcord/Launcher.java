@@ -23,9 +23,8 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import Server.Utils;
-
-
 
 public class Launcher extends Application {
     DataInputStream fromServer = null;
@@ -76,14 +75,13 @@ public class Launcher extends Application {
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
 
+        Node topBar = Header.header();
 
-
-        sendMsgPane.getChildren().addAll(ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
+        sendMsgPane.getChildren().addAll(topBar, ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
         HBox pane = new HBox();
         
         pane.getChildren().add(sendMsgPane);
         HBox.setHgrow(ptest,Priority.ALWAYS);
-        
 
         PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
         pane.getChildren().add(onlinePeople.generatePeopleOnline());
