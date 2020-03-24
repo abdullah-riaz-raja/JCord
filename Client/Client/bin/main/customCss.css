@@ -132,11 +132,3 @@
     -fx-focus-color: transparent;
 }
 */
-
-
-#PeopleOnlineViewer{
-    -fx-background-color: #40444b;
-    -fx-border-radius: 5;
-    -fx-border-width:5;
-    -fx-border-color: #40444b;
-}
