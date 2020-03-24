@@ -73,6 +73,22 @@
 }
 
 
+.login {
+    -fx-background-color: #2a2d31;
+}
+
+.login .text-field {
+    -fx-font: 10px "Whitney";
+    -fx-text-fill: "white";
+    -fx-background-color: #646b75;
+}
+
+.login .button {
+    -fx-background-color: #7289da;
+    -fx-font: 10px "Whitney";
+    -fx-text-fill: "white";
+}
+
 /*
 #messageCreate {
     -fx-background-color: #585e68;
