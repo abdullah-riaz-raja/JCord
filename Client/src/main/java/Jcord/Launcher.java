@@ -15,8 +15,9 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.application.Platform;
-
+import javafx.event.EventHandler;
 import Server.Utils;
 
 
@@ -84,7 +85,19 @@ public class Launcher extends Application {
         scene.getStylesheets().add("customCss.css");
 
         Runnable addNewMessage = new ListenForNewMessage(this);
-        new Thread(addNewMessage).start();
+        Thread checker = new Thread(addNewMessage);
+        checker.start();
+
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                handler.closeConnection();
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
 
         primaryStage.setScene(scene);
         primaryStage.show();

@@ -1,6 +1,7 @@
 package Server;
 
 import java.io.Serializable;
+import java.io.EOFException;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -64,6 +65,7 @@ public class Server {
 
                 // Handle Incoming Messages
                 while (socket.isConnected()) {
+                    
                     Object input = inputStream.readObject();
 
                     if (input instanceof Message) {
@@ -73,18 +75,9 @@ public class Server {
                         lock.lock();
                         sessionMessages.add(message);
                         lock.unlock();
-
-                        //outputStream.writeObject(sessionMessages.size());
-                        /*
-                         * switch (message.getMessageType()) { case MESSAGE:
-                         * outputStream.writeObject(message); outputStream.flush(); break;
-                         * 
-                         * case MESSAGEID: message.setMessageId(sessionMessages.size() + 1);
-                         * outputStream.writeObject(message); outputStream.flush(); break; }
-                         */
                     }else if(input instanceof Integer){
                         Integer id = (Integer)input;
-                        System.out.println(id);
+                        //System.out.println(id);
 
                         lock.lock();
                         outputStream.writeObject(new ArrayList<Message>(sessionMessages.subList(id, sessionMessages.size())));
@@ -92,7 +85,13 @@ public class Server {
                         //outputStream.flush();
                     }
                 }
-            } catch (Exception e) {
+            } catch (EOFException e) {
+
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (ClassNotFoundException e) {
+                // TODO Auto-generated catch block
                 e.printStackTrace();
             } finally {
                 // Close Streams
