@@ -14,7 +14,7 @@ dependencies {
 }
 
 application {
-    mainClassName = 'Jcord.Login'
+    mainClassName = 'Jcord.Launcher'
 }
 
 

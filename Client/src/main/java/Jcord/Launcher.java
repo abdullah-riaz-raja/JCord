@@ -10,6 +10,7 @@ import java.util.HashMap;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
@@ -30,10 +31,27 @@ public class Launcher extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
+        Login login = new Login();
+        User user;
+        if(!login.isSignedIn()){
+            Stage createAccStage = new Stage();
+
+            Scene createAccountScene = login.createAccount(createAccStage);
+
+            createAccStage.setScene(createAccountScene);
+            createAccStage.showAndWait();
+           
+            user = login.getUser();
+
+        }else{
+            user = login.getUserFromFile();
+            System.out.println(user.getUsername());
+        }
+        
+        
         VBox pane = new VBox();
         pane.getStyleClass().add("body-pane");
 
-        User userTest = new User("Cole", new Image("TestPreDataBase/index.jpeg"));
 
         String message = new String("Hello");
 
@@ -52,26 +70,7 @@ public class Launcher extends Application {
             System.out.println("Could not Find communcation json when sending msg");
             e.printStackTrace();
         }
-        /*
-         * // Connecting To Server CommunicationClient handler = new
-         * CommunicationClient(info.get("server-remote-ip"),
-         * Integer.parseInt(info.get("server-message-receive-port")), textMessage -> {
-         * Platform.runLater(()->{ Date time = new Date(System.currentTimeMillis());
-         * Message test = (Message) textMessage;
-         * messageViewHolder.getChildren().add(test.generateMessageViewNode()); }); },
-         * voiceMessage -> {
-         * 
-         * });
-         * 
-         * new Thread(handler).start();
-         * 
-         */
-        /*
-         * Message Filler for(int i =0; i <1; i++){ Date time = new
-         * Date(System.currentTimeMillis()); Message test = new Message(userTest,
-         * time,message);
-         * messageViewHolder.getChildren().add(test.generateMessageViewNode()); }
-         */
+     
 
         this.handler = new CommunicationClient(info.get("server-remote-ip"),
                 Integer.parseInt(info.get("server-message-receive-port")));
@@ -79,7 +78,7 @@ public class Launcher extends Application {
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
 
-        pane.getChildren().addAll(ptest, MessageCreator.GenerateMessageBox(primaryStage, userTest, handler));
+        pane.getChildren().addAll(ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
         Scene scene = new Scene(pane);
 
         scene.getStylesheets().add("customCss.css");

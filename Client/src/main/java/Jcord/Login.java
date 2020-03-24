@@ -23,14 +23,14 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-public class Login extends Application {
+public class Login {
     Stage stage;
     Image profilePicture;
     GridPane pane = new GridPane();
     User user;
 
     boolean isSignedIn() {
-        return new File("/resources/profile.user").exists();
+        return new File("src/main/resources/UserInfo/profile.user").exists();
     }
 
     User getUser() {
@@ -86,12 +86,6 @@ public class Login extends Application {
         return profileView;
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        primaryStage.setScene(createAccount(primaryStage));
-        primaryStage.show();
-    }
-
     public Scene createAccount(Stage stage) {
         this.stage = stage;
 
@@ -120,6 +114,7 @@ public class Login extends Application {
         create.setOnAction( e->{
             user = new User(userNameField.getText(), this.profilePicture);
             saveUser();
+            stage.close();
         });
 
 
