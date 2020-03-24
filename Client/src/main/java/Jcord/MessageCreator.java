@@ -94,9 +94,12 @@ public class MessageCreator {
         
         });
 
+        /*messageBox.setMinWidth(400);
+        messageBox.setMaxWidth(400);
+        attachment.setMinWidth(50);
+        attachment.setMaxWidth(50);*/
 
-
-        pane.getChildren().addAll(attachment,messageBox);        
+        pane.getChildren().addAll(attachment,messageBox);
         pane.getStyleClass().add("messageCreate");
         
         return pane;

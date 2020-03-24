@@ -13,6 +13,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -78,9 +79,33 @@ public class Launcher extends Application {
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
 
+
         pane.getChildren().addAll(ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
         Scene scene = new Scene(pane);
 
+        //People Online Viewer
+        HBox message1 = new HBox();
+        PeopleOnlineViewer test1 = new PeopleOnlineViewer(userTest);
+        message1.getChildren().add(test1.generatePeopleOnline());
+        //
+        /*ptest.setMinWidth(800);
+        ptest.setMaxWidth(800);*/
+
+        HBox message2 = new HBox();
+
+        message2.getChildren().add(MessageCreator.GenerateMessageBox(primaryStage,userTest,handler));
+
+        pane.getChildren().addAll(ptest, message2);
+
+        VBox pane2 = new VBox();
+        pane2.getChildren().addAll(message1);
+
+        HBox pane3 = new HBox();
+
+        Scene scene = new Scene(pane3);
+        pane3.getChildren().addAll(pane, pane2);
+
+        
         scene.getStylesheets().add("customCss.css");
 
         Runnable addNewMessage = new ListenForNewMessage(this);
