@@ -9,7 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public class CommunicationClient implements Runnable{
+public class CommunicationClient{
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     private Socket remote = null;
@@ -33,43 +33,6 @@ public class CommunicationClient implements Runnable{
         this.voicePlay = voicePlay;
     }
 
-    public void run()
-    {
-        try {
-            // Setting Up Streams and Port
-            this.remote = new Socket(this.ip, this.port);
-            outputStream = new ObjectOutputStream(this.remote.getOutputStream());
-            inputStream =  new ObjectInputStream(this.remote.getInputStream());
-
-            // Continue Listening For Server Response
-            while(remote.isConnected())
-            {
-                Message message = (Message) inputStream.readObject();
-                if (message != null)
-                {
-                    System.out.println("Message Not Null");
-                    switch(message.getMessageType())
-                    {
-                        case MESSAGE:
-                            System.out.println("Of Type Message");
-                            chatAppender.accept(message);
-                            break;
-                        case VOICEMESSAGE:
-                            System.out.println("Of Type Voice");
-                            voicePlay.accept(message);
-                            break;
-                    }
-                }
-
-            }
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-        }finally
-        {
-            closeConnection();
-        }
-    }
 
     // returns true if succesful, otherwise false
     public boolean establishConnection() {

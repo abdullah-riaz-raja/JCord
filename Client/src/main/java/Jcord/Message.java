@@ -122,3 +122,4 @@ public class Message implements Serializable {
         
         return pane;
     }
+}

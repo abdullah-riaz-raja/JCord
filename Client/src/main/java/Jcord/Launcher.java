@@ -13,7 +13,10 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -34,6 +37,7 @@ public class Launcher extends Application {
     public void start(Stage primaryStage) throws Exception {
         Login login = new Login();
         User user;
+        
         if(!login.isSignedIn()){
             Stage createAccStage = new Stage();
 
@@ -50,23 +54,11 @@ public class Launcher extends Application {
         }
         
         
-        VBox pane = new VBox();
-        pane.getStyleClass().add("body-pane");
-
-
-        String message = new String("Hello");
-
-        ScrollPane ptest = new ScrollPane();
-
-        Date time = new Date(System.currentTimeMillis());
-
-        // messageViewHolder = addMessageToView(new Message(userTest, time, "hello"),
-        // messageViewHolder);
-
+       
         // Establishing Server Info Path
         HashMap<String, String> info = null;
         try {
-            info = Utils.getServerInfo("communication.json");
+            info = Utils.getServerInfo("communication.json"); 
         } catch (FileNotFoundException e) {
             System.out.println("Could not Find communcation json when sending msg");
             e.printStackTrace();
@@ -76,24 +68,40 @@ public class Launcher extends Application {
         this.handler = new CommunicationClient(info.get("server-remote-ip"),
                 Integer.parseInt(info.get("server-message-receive-port")));
 
+
+        VBox sendMsgPane = new VBox();
+        sendMsgPane.getStyleClass().add("body-pane");
+        ScrollPane ptest = new ScrollPane();
+        
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
 
 
-        pane.getChildren().addAll(ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
-        Scene scene = new Scene(pane);
 
+        sendMsgPane.getChildren().addAll(ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
+        HBox pane = new HBox();
+        
+        pane.getChildren().add(sendMsgPane);
+        HBox.setHgrow(ptest,Priority.ALWAYS);
+        
+
+        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
+        pane.getChildren().add(onlinePeople.generatePeopleOnline());
+
+        
+        Scene scene = new Scene(pane);
+        /*
         //People Online Viewer
         HBox message1 = new HBox();
-        PeopleOnlineViewer test1 = new PeopleOnlineViewer(userTest);
+        PeopleOnlineViewer test1 = new PeopleOnlineViewer(user);
         message1.getChildren().add(test1.generatePeopleOnline());
         //
-        /*ptest.setMinWidth(800);
-        ptest.setMaxWidth(800);*/
+        ptest.setMinWidth(800);
+        ptest.setMaxWidth(800);
 
         HBox message2 = new HBox();
 
-        message2.getChildren().add(MessageCreator.GenerateMessageBox(primaryStage,userTest,handler));
+        message2.getChildren().add(MessageCreator.GenerateMessageBox(primaryStage,user,handler));
 
         pane.getChildren().addAll(ptest, message2);
 
@@ -102,10 +110,11 @@ public class Launcher extends Application {
 
         HBox pane3 = new HBox();
 
-        Scene scene = new Scene(pane3);
+        scene = new Scene(pane3);
         pane3.getChildren().addAll(pane, pane2);
 
         
+        */
         scene.getStylesheets().add("customCss.css");
 
         Runnable addNewMessage = new ListenForNewMessage(this);
