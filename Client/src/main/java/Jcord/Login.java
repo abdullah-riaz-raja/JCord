@@ -71,12 +71,10 @@ public class Login extends Application {
 
         public ClickableButton(Image graphic) {
 
-            // Set parameters for the image
             setImage(graphic);
             setFitWidth(24);
             setFitHeight(24);
 
-            // When this button is click, set its visibility to false.
             setOnMouseClicked(e -> {
                 FileChooser newPfp = new FileChooser();
                 File pfp = newPfp.showOpenDialog(stage);
