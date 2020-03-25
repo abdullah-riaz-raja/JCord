@@ -39,7 +39,6 @@
 .messageView .text-area > .scroll-pane{
     -fx-vbar-policy:never;
     -fx-focus-color: transparent;
-    
 }
 
 .messageWindow {
@@ -52,6 +51,7 @@
     -fx-border-width: 2;
     -fx-border-color: #494d55;
 }
+
 
 
 .messageCreate .text-area .content{
@@ -173,3 +173,14 @@
     -fx-font-weight: bold;
     -fx-background-radius: 8;
 }
+
+
+.scroll-pane{
+    -fx-background-color: #40444b;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+ }

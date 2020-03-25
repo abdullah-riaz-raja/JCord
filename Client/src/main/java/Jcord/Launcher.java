@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -75,19 +77,22 @@ public class Launcher extends Application {
 
         VBox sendMsgPane = new VBox();
         sendMsgPane.getStyleClass().add("body-pane");
-        ScrollPane ptest = new ScrollPane();
-        
-        ptest.setContent(messageViewHolder);
-        ptest.getStyleClass().add("messageWindow");
-        ptest.vvalueProperty().bind(messageViewHolder.heightProperty());
+        ScrollPane scroll = new ScrollPane();
+        scroll.setPrefViewportHeight(1000);
+
+
+
+        scroll.setContent(messageViewHolder);
+        scroll.getStyleClass().add("messageWindow");
+        scroll.vvalueProperty().bind(messageViewHolder.heightProperty());
 
         Node topBar = Header.header();
 
-        sendMsgPane.getChildren().addAll(topBar, ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
+        sendMsgPane.getChildren().addAll(topBar, scroll, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
         HBox pane = new HBox();
         
         pane.getChildren().add(sendMsgPane);
-        HBox.setHgrow(ptest,Priority.ALWAYS);
+        HBox.setHgrow(scroll,Priority.ALWAYS);
 
         PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
         pane.getChildren().add(onlinePeople.generatePeopleOnline());
@@ -100,14 +105,14 @@ public class Launcher extends Application {
         PeopleOnlineViewer test1 = new PeopleOnlineViewer(user);
         message1.getChildren().add(test1.generatePeopleOnline());
         //
-        ptest.setMinWidth(800);
-        ptest.setMaxWidth(800);
+        scroll.setMinWidth(800);
+        scroll.setMaxWidth(800);
 
         HBox message2 = new HBox();
 
         message2.getChildren().add(MessageCreator.GenerateMessageBox(primaryStage,user,handler));
 
-        pane.getChildren().addAll(ptest, message2);
+        pane.getChildren().addAll(scroll, message2);
 
         VBox pane2 = new VBox();
         pane2.getChildren().addAll(message1);
@@ -146,9 +151,16 @@ public class Launcher extends Application {
         return view;
     }
 
+    public class UserComparator implements Comparator<User> {
+        @Override
+        public int compare(User user1, User user2) {
+            return user1.getUsername().compareTo(user2.getUsername());
+        }
+    }
+
     private class ListenForNewMessage implements Runnable {
         Launcher currentClient;
-
+        ArrayList<User> userOnlineArrayList;
         public ListenForNewMessage(Launcher instance) {
             this.currentClient = instance;
         }
@@ -169,20 +181,31 @@ public class Launcher extends Application {
                             currentId = i.getMessageId();
 
                         }
+
                         currentClient.newestMessageId = currentId;
 
                         currentClient.user.setLastActivity(new Date(System.currentTimeMillis()));
 
                         HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
 
-                        for (User user : newUser) {
+                        userOnlineArrayList= new ArrayList<User>(newUser);
+                        
+                        Collections.sort(userOnlineArrayList, new UserComparator());
+
+                        //System.out.println(userOnlineArrayList);
+                        /*
+                        for (User i : userOnlineArrayList) {
                             // TODO : add users
-                        }
+                            System.out.println(i.getUsername());
+                            System.out.println("Space");
+                        }*/
                     }catch (ClassNotFoundException | IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
                 });
+
+                
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException e) {

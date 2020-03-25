@@ -21,7 +21,7 @@ import Jcord.Message;
 
 public class Server {
     private static ArrayList<Message> sessionMessages = new ArrayList<Message>();
-    private static HashSet<User> onlineUsers = new HashSet<>();
+    private static HashSet<User> onlineUsers = new HashSet<User>();
     private static ReentrantLock lock = new ReentrantLock();
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         ExecutorService executor = Executors.newCachedThreadPool();
@@ -88,6 +88,7 @@ public class Server {
                         //System.out.println(id);
 
                         lock.lock();
+                        outputStream.reset();
                         outputStream.writeObject(new ArrayList<Message>(sessionMessages.subList(id, sessionMessages.size())));
                         lock.unlock();
                         //outputStream.flush();
@@ -97,6 +98,7 @@ public class Server {
 
                         // Sending Set Of Online Users
                         lock.lock();
+                        outputStream.reset();
                         outputStream.writeObject(onlineUsers);
                         lock.unlock();
                     }
@@ -144,11 +146,13 @@ public class Server {
     {
         public void run()
         {
+            System.out.println(onlineUsers);
+                
             // Update Online Users Information
             for (Iterator<User> iterator = onlineUsers.iterator(); iterator.hasNext();)
             {
                 User user = iterator.next();
-                if (Math.abs(Math.abs(user.getLastActivity().getTime() - System.currentTimeMillis())) > 30000)
+                if ( (System.currentTimeMillis() - user.getLastActivity().getTime())  > 30000)
                 {
                     iterator.remove();
                 }

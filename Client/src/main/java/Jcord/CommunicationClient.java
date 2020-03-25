@@ -65,13 +65,14 @@ public class CommunicationClient{
     public HashSet<User> getNewUser(User user) throws IOException, ClassNotFoundException {
         outputStream.writeObject(user);
         outputStream.flush();
+        
         Object response = inputStream.readObject();
 
         HashSet<User> newUsers = new HashSet<User>();
         if (response instanceof HashSet){
             newUsers = (HashSet<User>)response;
         }
-
+        System.out.println(newUsers);
         return newUsers;
     }
 
