@@ -133,6 +133,16 @@ public class Launcher extends Application {
         Thread checker = new Thread(addNewMessage);
         checker.start();
 
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                handler.closeConnection();
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
+
         return scene;
         
 
@@ -143,12 +153,7 @@ public class Launcher extends Application {
         Scene scene = genMainScene(primaryStage);
 
 
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent t) {
-                handler.closeConnection();
-            }
-        });
+     
 
         primaryStage.setScene(scene);
         primaryStage.show();

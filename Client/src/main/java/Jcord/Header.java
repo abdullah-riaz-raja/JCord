@@ -131,8 +131,10 @@ public class Header {
                 Launcher launch = new Launcher();
                 try {
                     Scene scene = launch.genMainScene(primaryStage);
+                     
                     primaryStage.setScene(scene);
                     primaryStage.show();
+                    
                 } catch (IOException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
