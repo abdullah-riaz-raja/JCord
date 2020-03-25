@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.io.Serializable;
+import java.nio.charset.Charset;
 
 import Server.Utils;
 import javafx.event.EventHandler;
@@ -57,6 +58,7 @@ public class MessageCreator {
 
                     if (handler.establishConnection()) {
                         Date time = new Date(System.currentTimeMillis());
+
                         Message newMsg = new Message(user, time, messageBox.getText());
                         // public MessageViewers(User user,Date timeSent,String msg){
 
@@ -69,6 +71,7 @@ public class MessageCreator {
                     }
                     // clear text
                     messageBox.setText("");
+                    messageBox.requestFocus();
                 }
 
             }

@@ -39,7 +39,6 @@
 .messageView .text-area > .scroll-pane{
     -fx-vbar-policy:never;
     -fx-focus-color: transparent;
-    
 }
 
 .messageWindow {
@@ -52,6 +51,7 @@
     -fx-border-width: 2;
     -fx-border-color: #494d55;
 }
+
 
 
 .messageCreate .text-area .content{
@@ -174,18 +174,6 @@
     -fx-background-radius: 8;
 }
 
-#profileImg {
-    -fx-background-radius: 20;
-}
-
-#logOut {
-    -fx-text-fill: white;
-    -fx-background-color: #f02626;
-    -fx-font-weight: bold;
-    -fx-background-radius: 8;
-}
-=======
-
 .scroll-pane{
     -fx-background-color: #40444b;
     -fx-fit-to-width: true;
@@ -194,9 +182,8 @@
 
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
- }
-
-#profileImg {
+  
+  #profileImg {
     -fx-background-radius: 20;
 }
 
@@ -205,5 +192,4 @@
     -fx-background-color: #f02626;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
-}
 
