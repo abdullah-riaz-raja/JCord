@@ -189,10 +189,10 @@ public class Launcher extends Application {
                         HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
 
                         userOnlineArrayList= new ArrayList<User>(newUser);
-                        
                         Collections.sort(userOnlineArrayList, new UserComparator());
-
+                        
                         //System.out.println(userOnlineArrayList);
+
                         /*
                         for (User i : userOnlineArrayList) {
                             // TODO : add users
@@ -207,7 +207,7 @@ public class Launcher extends Application {
 
                 
                 try {
-                    Thread.sleep(200);
+                    Thread.sleep(1000);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
