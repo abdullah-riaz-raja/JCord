@@ -1,10 +1,7 @@
 package Jcord;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -14,17 +11,22 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 
 public class Header {
 
-    public static Node header() throws FileNotFoundException {
+    public static Node header(User user) throws FileNotFoundException {
 
         //initializing Panes
         GridPane topBar = new GridPane();
@@ -39,25 +41,31 @@ public class Header {
 
         //Column Constraints
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(75);
+        col1.setPercentWidth(70);
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(25);
+        col2.setPercentWidth(30);
         topBar.getColumnConstraints().addAll(col1,col2);
 
-        //group or @ image
-        Image atImg = new Image("Images/at.png");
-        ImageView at = new ImageView(atImg);
-        at.setFitWidth(20);
-        at.setFitHeight(20);
+
+        //profile image
+        Circle profileCircle = new Circle(10);
+        Image profileImg = user.getProfilePicture();
+        profileCircle.setFill(new ImagePattern(profileImg));
 
         //channel/username/group name
-        Text channel = new Text("Bad Things");
+        Text channel = new Text(user.getUsername());
         channel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
         channel.setFill(Color.WHITESMOKE);
 
-        //online status if one person chat
-        Image statusImg = new Image("Images/online2.png");
-        ImageView status = new ImageView(statusImg);
+        //online status
+        ImageView status = new ImageView();
+        if (user.getisOnline()) {
+            Image statusImg = new Image("Images/online.png");
+            status.setImage(statusImg);
+        } else {
+            Image statusImg = new Image("Images/offline.png");
+            status.setImage(statusImg);
+        }
         status.setFitWidth(20);
         status.setFitHeight(20);
 
@@ -80,21 +88,30 @@ public class Header {
         videoCall.setGraphic(video);
         videoCall.setId("headerButtons");
 
-        //pinned
-        Button pinnedMessages = new Button();
-        Image pinnedImg = new Image("Images/pushPin.png");
-        ImageView pinned = new ImageView(pinnedImg);
-        pinned.setFitWidth(20);
-        pinned.setFitHeight(20);
-        pinnedMessages.setGraphic(pinned);
-        pinnedMessages.setId("headerButtons");
+//        //pinned
+//        Button pinnedMessages = new Button();
+//        Image pinnedImg = new Image("Images/pushPin.png");
+//        ImageView pinned = new ImageView(pinnedImg);
+//        pinned.setFitWidth(20);
+//        pinned.setFitHeight(20);
+//        pinnedMessages.setGraphic(pinned);
+//        pinnedMessages.setId("headerButtons");
 
         //search
         TextField searchConvo = new TextField("Search");
         searchConvo.setId("search");
 
-        name.getChildren().addAll(at, channel, status);
-        actions.getChildren().addAll(voiceCall, videoCall, pinnedMessages, searchConvo);
+        //Log Out
+        Button logOut = new Button("Log Out");
+        logOut.setId("logOutButton");
+        logOut.setOnAction(e -> {
+            System.exit(0);
+        });
+
+
+
+        name.getChildren().addAll(profileCircle, channel, status);
+        actions.getChildren().addAll(voiceCall, videoCall, searchConvo, logOut);
         topBar.add(name, 0, 1);
         topBar.add(actions, 1, 1);
 
