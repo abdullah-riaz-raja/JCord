@@ -6,7 +6,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.TimerTask;
+import java.util.Timer;
 
+import Server.Server;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -23,6 +27,7 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
+import java.util.HashSet;
 import Server.Utils;
 
 
@@ -31,12 +36,12 @@ public class Launcher extends Application {
     DataInputStream fromServer = null;
     VBox messageViewHolder = new VBox();
     int newestMessageId = 0;
+    User user;
     CommunicationClient handler;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Login login = new Login();
-        User user;
         
         if(!login.isSignedIn()){
             Stage createAccStage = new Stage();
@@ -63,7 +68,7 @@ public class Launcher extends Application {
             System.out.println("Could not Find communcation json when sending msg");
             e.printStackTrace();
         }
-     
+
 
         this.handler = new CommunicationClient(info.get("server-remote-ip"),
                 Integer.parseInt(info.get("server-message-receive-port")));
@@ -83,7 +88,6 @@ public class Launcher extends Application {
         
         pane.getChildren().add(sendMsgPane);
         HBox.setHgrow(ptest,Priority.ALWAYS);
-        
 
         PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
         pane.getChildren().add(onlinePeople.generatePeopleOnline());
@@ -156,16 +160,24 @@ public class Launcher extends Application {
                 Platform.runLater(() -> {
                     try {
                         ArrayList<Message> newMsg = this.currentClient.handler.getNewMessage(currentClient.newestMessageId);
-                           
-                            int currentId = currentClient.newestMessageId;
-                            
-                            for (Message i : newMsg) {
-                                this.currentClient.messageViewHolder.getChildren().add(i.generateMessageViewNode());
-                                System.out.println(i.getMessage());
-                                currentId = i.getMessageId();
-                            
+
+                        int currentId = currentClient.newestMessageId;
+
+                        for (Message i : newMsg) {
+                            this.currentClient.messageViewHolder.getChildren().add(i.generateMessageViewNode());
+                            System.out.println(i.getMessage());
+                            currentId = i.getMessageId();
+
                         }
-                            currentClient.newestMessageId = currentId;
+                        currentClient.newestMessageId = currentId;
+
+                        currentClient.user.setLastActivity(new Date(System.currentTimeMillis()));
+
+                        HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
+
+                        for (User user : newUser) {
+                            // TODO : add users
+                        }
                     }catch (ClassNotFoundException | IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();

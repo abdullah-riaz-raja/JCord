@@ -9,15 +9,19 @@ import java.util.ArrayList;
 import java.util.Vector;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.HashSet;
+import java.util.TimerTask;
+import java.util.Timer;
+import java.util.Iterator;
 import java.util.concurrent.locks.ReentrantLock;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import Jcord.User;
 import Jcord.Message;
-import Jcord.MessageType.*;
 
 public class Server {
     private static ArrayList<Message> sessionMessages = new ArrayList<Message>();
+    private static HashSet<User> onlineUsers = new HashSet<>();
     private static ReentrantLock lock = new ReentrantLock();
     public static void main(String[] args) throws ClassNotFoundException, IOException {
         ExecutorService executor = Executors.newCachedThreadPool();
@@ -27,6 +31,10 @@ public class Server {
                 Integer.parseInt(Utils.getServerInfo("communication.json").get("server-message-receive-port")));
 
         try {
+            // Routinely updates server info every 30 seconds
+            Timer updateServerInformation = new Timer();
+            updateServerInformation.schedule(new UpdateServerInfo(), 0, 10000);
+
             // Listens for a new request
             while (!serverSocket.isClosed()) {
                 // Creates a new thread to handle request
@@ -83,6 +91,14 @@ public class Server {
                         outputStream.writeObject(new ArrayList<Message>(sessionMessages.subList(id, sessionMessages.size())));
                         lock.unlock();
                         //outputStream.flush();
+                    }else if(input instanceof User)
+                    {
+                        onlineUsers.add((User)input);
+
+                        // Sending Set Of Online Users
+                        lock.lock();
+                        outputStream.writeObject(onlineUsers);
+                        lock.unlock();
                     }
                 }
             } catch (EOFException e) {
@@ -119,6 +135,22 @@ public class Server {
 
                 if (lock.isHeldByCurrentThread()){
                     lock.unlock();
+                }
+            }
+        }
+    }
+
+    private static class UpdateServerInfo extends TimerTask
+    {
+        public void run()
+        {
+            // Update Online Users Information
+            for (Iterator<User> iterator = onlineUsers.iterator(); iterator.hasNext();)
+            {
+                User user = iterator.next();
+                if (Math.abs(Math.abs(user.getLastActivity().getTime() - System.currentTimeMillis())) > 30000)
+                {
+                    iterator.remove();
                 }
             }
         }

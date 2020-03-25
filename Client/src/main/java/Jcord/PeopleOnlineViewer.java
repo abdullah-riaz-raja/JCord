@@ -18,7 +18,6 @@ public class PeopleOnlineViewer {
 
     public PeopleOnlineViewer(User user) {
         this.user = user;
-
     }
 
 

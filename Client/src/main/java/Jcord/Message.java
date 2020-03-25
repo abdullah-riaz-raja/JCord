@@ -20,14 +20,12 @@ public class Message implements Serializable {
     public User user;
     private Date timeSent;
     private String message;
-    MessageType messageType;
     int messageId;
 
     public Message(User user,Date timeSent,String message){
         this.user = user;
         this.timeSent = timeSent;
         this.message = message;
-        this.messageType = MessageType.MESSAGE;
     }
 
     public User getUser(){
@@ -40,10 +38,6 @@ public class Message implements Serializable {
 
     public String getMessage(){
         return this.message;
-    }
-
-    public MessageType getMessageType(){
-        return this.messageType;
     }
 
     public int getMessageId(){
