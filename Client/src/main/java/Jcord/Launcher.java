@@ -43,7 +43,7 @@ public class Launcher extends Application {
 
     Scene genMainScene(Stage primaryStage) throws IOException {
         Login login = new Login();
-        
+
         if(!login.isSignedIn()){
             Stage createAccStage = new Stage();
 
@@ -51,7 +51,7 @@ public class Launcher extends Application {
 
             createAccStage.setScene(createAccountScene);
             createAccStage.showAndWait();
-           
+
             user = login.getUser();
             user.setIsOnline(true);
 
@@ -59,15 +59,15 @@ public class Launcher extends Application {
             user = login.getUserFromFile();
             System.out.println(user.getUsername());
         }
-        
+
         if(user == null){
             System.exit(0);
         }
-       
+
         // Establishing Server Info Path
         HashMap<String, String> info = null;
         try {
-            info = Utils.getServerInfo("communication.json"); 
+            info = Utils.getServerInfo("communication.json");
         } catch (FileNotFoundException e) {
             System.out.println("Could not Find communcation json when sending msg");
             e.printStackTrace();
@@ -91,16 +91,18 @@ public class Launcher extends Application {
 
         Node topBar = Header.header(user,primaryStage);
 
-        sendMsgPane.getChildren().addAll(topBar, scroll, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
+        ChannelsDisplay channels = new ChannelsDisplay();
+
+        sendMsgPane.getChildren().addAll(topBar,channels.node1(),scroll,MessageCreator.GenerateMessageBox(primaryStage, user, handler));
         HBox pane = new HBox();
-        
+
         pane.getChildren().add(sendMsgPane);
         HBox.setHgrow(scroll,Priority.ALWAYS);
 
-        //PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
-        //pane.getChildren().add(onlinePeople.generatePeopleOnline());
+        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
+        pane.getChildren().add(onlinePeople.generatePeopleOnline());
 
-        
+
         Scene scene = new Scene(pane);
         /*
         //People Online Viewer
@@ -144,7 +146,7 @@ public class Launcher extends Application {
 
 
         return scene;
-        
+
 
     }
 
@@ -153,7 +155,6 @@ public class Launcher extends Application {
         Scene scene = genMainScene(primaryStage);
 
 
-     
 
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -185,44 +186,42 @@ public class Launcher extends Application {
             while (true) {
                 // TODO Auto-generated method stub
                 //Platform.runLater(() -> {
-                    try {
-                        ArrayList<Message> newMsg = this.currentClient.handler.getNewMessage(currentClient.newestMessageId);
+                try {
+                    ArrayList<Message> newMsg = this.currentClient.handler.getNewMessage(currentClient.newestMessageId);
 
-                        currentId = currentClient.newestMessageId;
+                    currentId = currentClient.newestMessageId;
 
-                        for (Message i : newMsg) {
-                            Platform.runLater(() -> {
-                                this.currentClient.messageViewHolder.getChildren().add(i.generateMessageViewNode());
-                                System.out.println(i.getMessage());
-                            });
-                            currentId = i.getMessageId();
-                        }
-
-                        currentClient.newestMessageId = currentId;
-
-                        currentClient.user.setLastActivity(new Date(System.currentTimeMillis()));
-
-                        //HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
-
-                        //userOnlineArrayList= new ArrayList<User>(newUser);
-                        //Collections.sort(userOnlineArrayList, new UserComparator());
-
-                        
-                        //System.out.println(userOnlineArrayList);
-                        
-                        /*
-                        for (User i : userOnlineArrayList) {
-                            // TODO : add users
-                            System.out.println(i.getUsername());
-                         }
-                         */
-                    }catch (ClassNotFoundException | IOException e) {
-                        // TODO Auto-generated catch block
-                        e.printStackTrace();
+                    for (Message i : newMsg) {
+                        Platform.runLater(() -> {
+                            this.currentClient.messageViewHolder.getChildren().add(i.generateMessageViewNode());
+                            System.out.println(i.getMessage());
+                        });
+                        currentId = i.getMessageId();
                     }
+
+                    currentClient.newestMessageId = currentId;
+
+                    currentClient.user.setLastActivity(new Date(System.currentTimeMillis()));
+
+                    HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
+
+                    userOnlineArrayList= new ArrayList<User>(newUser);
+                    Collections.sort(userOnlineArrayList, new UserComparator());
+
+                    //System.out.println(userOnlineArrayList);
+                    /* */
+
+                    for (User i : userOnlineArrayList) {
+                        // TODO : add users
+                        System.out.println(i.getUsername());
+                    }
+                }catch (ClassNotFoundException | IOException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
                 //});
 
-                
+
                 try {
                     Thread.sleep(400);
                 } catch (InterruptedException e) {
@@ -233,4 +232,3 @@ public class Launcher extends Application {
         }
     }
 }
- 
