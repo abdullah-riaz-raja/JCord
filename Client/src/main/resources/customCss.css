@@ -184,3 +184,26 @@
     -fx-font-weight: bold;
     -fx-background-radius: 8;
 }
+=======
+
+.scroll-pane{
+    -fx-background-color: #40444b;
+    -fx-fit-to-width: true;
+    -fx-fit-to-height: true;
+}
+
+.scroll-pane > .viewport {
+    -fx-background-color: transparent;
+ }
+
+#profileImg {
+    -fx-background-radius: 20;
+}
+
+#logOut {
+    -fx-text-fill: white;
+    -fx-background-color: #f02626;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
+}
+
