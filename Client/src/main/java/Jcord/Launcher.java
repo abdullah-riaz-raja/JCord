@@ -161,6 +161,7 @@ public class Launcher extends Application {
     private class ListenForNewMessage implements Runnable {
         Launcher currentClient;
         ArrayList<User> userOnlineArrayList;
+        int currentId = 0;
         public ListenForNewMessage(Launcher instance) {
             this.currentClient = instance;
         }
@@ -169,17 +170,18 @@ public class Launcher extends Application {
         public void run() {
             while (true) {
                 // TODO Auto-generated method stub
-                Platform.runLater(() -> {
+                //Platform.runLater(() -> {
                     try {
                         ArrayList<Message> newMsg = this.currentClient.handler.getNewMessage(currentClient.newestMessageId);
 
-                        int currentId = currentClient.newestMessageId;
+                        currentId = currentClient.newestMessageId;
 
                         for (Message i : newMsg) {
-                            this.currentClient.messageViewHolder.getChildren().add(i.generateMessageViewNode());
-                            System.out.println(i.getMessage());
+                            Platform.runLater(() -> {
+                                this.currentClient.messageViewHolder.getChildren().add(i.generateMessageViewNode());
+                                System.out.println(i.getMessage());
+                            });
                             currentId = i.getMessageId();
-
                         }
 
                         currentClient.newestMessageId = currentId;
@@ -192,22 +194,21 @@ public class Launcher extends Application {
                         Collections.sort(userOnlineArrayList, new UserComparator());
                         
                         //System.out.println(userOnlineArrayList);
-
                         /*
+
                         for (User i : userOnlineArrayList) {
                             // TODO : add users
                             System.out.println(i.getUsername());
-                            System.out.println("Space");
-                        }*/
+                         }
                     }catch (ClassNotFoundException | IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
                     }
-                });
+                //});
 
                 
                 try {
-                    Thread.sleep(1000);
+                    Thread.sleep(400);
                 } catch (InterruptedException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();
