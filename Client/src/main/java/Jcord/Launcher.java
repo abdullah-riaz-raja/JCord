@@ -97,8 +97,8 @@ public class Launcher extends Application {
         pane.getChildren().add(sendMsgPane);
         HBox.setHgrow(scroll,Priority.ALWAYS);
 
-        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
-        pane.getChildren().add(onlinePeople.generatePeopleOnline());
+        //PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
+        //pane.getChildren().add(onlinePeople.generatePeopleOnline());
 
         
         Scene scene = new Scene(pane);
@@ -202,10 +202,10 @@ public class Launcher extends Application {
 
                         currentClient.user.setLastActivity(new Date(System.currentTimeMillis()));
 
-                        HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
+                        //HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
 
-                        userOnlineArrayList= new ArrayList<User>(newUser);
-                        Collections.sort(userOnlineArrayList, new UserComparator());
+                        //userOnlineArrayList= new ArrayList<User>(newUser);
+                        //Collections.sort(userOnlineArrayList, new UserComparator());
 
                         
                         //System.out.println(userOnlineArrayList);
