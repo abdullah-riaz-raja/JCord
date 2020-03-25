@@ -4,20 +4,13 @@ import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.Lighting;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
@@ -68,6 +61,7 @@ public class Launcher extends Application {
                 Integer.parseInt(info.get("server-message-receive-port")));
 
 
+
         VBox sendMsgPane = new VBox();
         sendMsgPane.getStyleClass().add("body-pane");
         ScrollPane ptest = new ScrollPane();
@@ -77,16 +71,23 @@ public class Launcher extends Application {
 
         Node topBar = Header.header();
 
-        sendMsgPane.getChildren().addAll(topBar, ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
+        ChannelsDisplay channels = new ChannelsDisplay();
+
+        //
+        sendMsgPane.getChildren().addAll(topBar,ptest,MessageCreator.GenerateMessageBox(primaryStage, user, handler), channels.node1());
+        //
         HBox pane = new HBox();
-        
-        pane.getChildren().add(sendMsgPane);
+        //ChannelsDisplay channels = new ChannelsDisplay();
+        //
+
+        pane.getChildren().addAll(sendMsgPane);
         HBox.setHgrow(ptest,Priority.ALWAYS);
 
-        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
-        pane.getChildren().add(onlinePeople.generatePeopleOnline());
 
-        
+
+        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
+        pane.getChildren().addAll(onlinePeople.generatePeopleOnline());
+
         Scene scene = new Scene(pane);
         /*
         //People Online Viewer
@@ -113,7 +114,9 @@ public class Launcher extends Application {
 
         
         */
+        //scene.getStylesheets().add("customCss.css");
         scene.getStylesheets().add("customCss.css");
+
 
         Runnable addNewMessage = new ListenForNewMessage(this);
         Thread checker = new Thread(addNewMessage);

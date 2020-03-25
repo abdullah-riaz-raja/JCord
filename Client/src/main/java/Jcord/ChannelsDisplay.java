@@ -21,65 +21,36 @@ package Jcord;
 * AdilAdil 3, & jewelseajewelsea 122k1010 gold badges304304 silver badges343343 bronze badges. (1962, August 1). Add image to a button at a specific position JavaFX.
 * Retrieved from https://stackoverflow.com/questions/12678197/add-image-to-a-button-at-a-specific-position-javafx
 * */
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import javafx.scene.Node;
 
-public class hbox extends Application {
-    @Override // Override the start method in the Application class
-    public void start(Stage primaryStage) {
-        // Creating the border pane
+public class ChannelsDisplay{
+
+    Node node1() {
         VBox root = new VBox();
-        //BorderPane pane_frame = new BorderPane();
-
-        // Allowing the nodes inside the pane
-        //pane_frame.setTop(createHbox());
-        //pane_frame.setTop(createHbox2());
-        //pane_frame.setBottom(createVBox());
-        root.getChildren().addAll(Hbox_label(),createHbox(),createHbox2());
-        root.getChildren().addAll();
-        Scene display_scene = new Scene(root,330,650);//placing pane in scene
-        primaryStage.setTitle("Display Channels");// setting stage title
-        display_scene.getStylesheets().add("ChannelCss.css");
-        primaryStage.setScene(display_scene);// placing scene into the stage
-        primaryStage.show();// displaying stage
-
-    }
-
-    /*
-    Node node1(){
-        VBox root = new VBox();
-        //BorderPane pane_frame = new BorderPane();
-
-        // Allowing the nodes inside the pane
-        //pane_frame.setTop(createHbox());
-        //pane_frame.setTop(createHbox2());
-        //pane_frame.setBottom(createVBox());
-        root.getChildren().addAll(Hbox_label(),createHbox(),createHbox2());
+        root.getChildren().addAll(Label(), ChatChannel(), VoiceChannel());
         root.getChildren().addAll();
         return root;
-
-    }*/
+    }
 
     // HBox(Label), channel list
-    private HBox Hbox_label(){
-        HBox hBox0 = new HBox(50);
-        ImageView arrow = new ImageView("bottom.png");
+    private HBox Label() {
+        HBox hBox0 = new HBox(100);
+        ImageView arrow = new ImageView("Images/bottom.png");
         Label label1 = new Label("CHANNEL LIST", arrow);
         hBox0.getChildren().addAll(label1);
         return hBox0;
     }
+
     //Hbox(button 1)
-    private HBox createHbox(){
-        HBox hBox1 = new HBox(50);
-        Image hashtag = new Image("new_hash.png");
+    private HBox ChatChannel() {
+        HBox hBox1 = new HBox(100);
+        Image hashtag = new Image("Images/new_hash.png");
         //hBox.setPadding(new Insets(15,15,15,15));
         ImageView iv2 = new ImageView();
         iv2.setImage(hashtag);
@@ -91,10 +62,11 @@ public class hbox extends Application {
         hBox1.getChildren().add(button);
         return hBox1;
     }
+
     //Hbox(button 2)
-    private HBox createHbox2(){
-        HBox hBox2 = new HBox(50);
-        Image hashtag = new Image("speaker.png");
+    private HBox VoiceChannel() {
+        HBox hBox2 = new HBox(100);
+        Image hashtag = new Image("Images/speaker.png");
         //hBox.setPadding(new Insets(15,15,15,15));
         ImageView iv3 = new ImageView();
         iv3.setImage(hashtag);
@@ -122,13 +94,5 @@ public class hbox extends Application {
         Button button = new Button("Display Channels", iv4);
         hBox2.getChildren().add(button);
         return hBox2;
-    }
-    */
-    /**
-     * The main method is only needed for the IDE with limited
-     * JavaFX support. Not needed for running from the command line.
-     */
-    public static void main(String[] args) {
-        launch(args);
-    }
+    }*/
 }
