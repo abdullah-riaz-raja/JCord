@@ -182,8 +182,9 @@
 
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
-  
-  #profileImg {
+}
+
+#profileImg {
     -fx-background-radius: 20;
 }
 
@@ -192,4 +193,4 @@
     -fx-background-color: #f02626;
     -fx-font-weight: bold;
     -fx-background-radius: 8;
-
+}
