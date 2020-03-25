@@ -208,7 +208,7 @@ public class Launcher extends Application {
                         Collections.sort(userOnlineArrayList, new UserComparator());
                         
                         //System.out.println(userOnlineArrayList);
-                        /*
+                        
 
                         for (User i : userOnlineArrayList) {
                             // TODO : add users
