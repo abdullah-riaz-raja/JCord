@@ -75,6 +75,11 @@ public class Login {
         }
     }
 
+    void deleteUserFile(){
+        File newUserFile = new File("src/main/resources/UserInfo/profile.user");
+        newUserFile.delete();
+    }
+
     ClickableButton makeImageCircle(Image image) {
         ClickableButton profileView = new ClickableButton(image);
         profileView.setFitHeight(50);

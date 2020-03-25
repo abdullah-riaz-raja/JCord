@@ -40,8 +40,8 @@ public class Launcher extends Application {
     User user;
     CommunicationClient handler;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
+
+    Scene genMainScene(Stage primaryStage) throws IOException {
         Login login = new Login();
         
         if(!login.isSignedIn()){
@@ -60,7 +60,9 @@ public class Launcher extends Application {
             System.out.println(user.getUsername());
         }
         
-        
+        if(user == null){
+            System.exit(0);
+        }
        
         // Establishing Server Info Path
         HashMap<String, String> info = null;
@@ -87,7 +89,7 @@ public class Launcher extends Application {
         scroll.getStyleClass().add("messageWindow");
         scroll.vvalueProperty().bind(messageViewHolder.heightProperty());
 
-        Node topBar = Header.header(user);
+        Node topBar = Header.header(user,primaryStage);
 
         sendMsgPane.getChildren().addAll(topBar, scroll, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
         HBox pane = new HBox();
@@ -131,16 +133,22 @@ public class Launcher extends Application {
         Thread checker = new Thread(addNewMessage);
         checker.start();
 
+        return scene;
+        
+
+    }
+
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Scene scene = genMainScene(primaryStage);
+
 
         primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
             public void handle(WindowEvent t) {
                 handler.closeConnection();
-                Platform.exit();
-                System.exit(0);
             }
         });
-
 
         primaryStage.setScene(scene);
         primaryStage.show();
