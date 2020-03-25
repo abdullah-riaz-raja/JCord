@@ -25,7 +25,7 @@ public class CommunicationClient{
         inputStream =  new ObjectInputStream(this.remote.getInputStream());
     }
 
-    // returns true if succesful, otherwise false
+    // returns true if successful, otherwise false
     public boolean establishConnection() {
         if(remote.isConnected())
         {
