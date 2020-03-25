@@ -184,3 +184,13 @@
 .scroll-pane > .viewport {
     -fx-background-color: transparent;
  }
+
+ #profileImg {
+    -fx-background-radius: 20;
+}
+
+#logOutButton {
+    -fx-text-fill: white;
+    -fx-background-color: #f02626;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;

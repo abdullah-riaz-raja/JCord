@@ -53,6 +53,7 @@ public class Launcher extends Application {
             createAccStage.showAndWait();
            
             user = login.getUser();
+            user.setIsOnline(true);
 
         }else{
             user = login.getUserFromFile();
@@ -86,7 +87,7 @@ public class Launcher extends Application {
         scroll.getStyleClass().add("messageWindow");
         scroll.vvalueProperty().bind(messageViewHolder.heightProperty());
 
-        Node topBar = Header.header();
+        Node topBar = Header.header(user);
 
         sendMsgPane.getChildren().addAll(topBar, scroll, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
         HBox pane = new HBox();
