@@ -60,13 +60,18 @@ public class Header {
 
         //online status
         ImageView status = new ImageView();
+        /*
         if (user.getisOnline()) {
             Image statusImg = new Image("Images/online.png");
             status.setImage(statusImg);
         } else {
             Image statusImg = new Image("Images/offline.png");
             status.setImage(statusImg);
-        }
+        }*/
+
+        Image statusImg = new Image("Images/online.png");
+        status.setImage(statusImg);
+    
         status.setFitWidth(20);
         status.setFitHeight(20);
 
