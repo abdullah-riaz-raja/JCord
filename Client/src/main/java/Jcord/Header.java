@@ -25,8 +25,9 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class Header {
-
-    public static Node header(User user) throws FileNotFoundException {
+    static User user_copy;
+    public static Node header(User user, Stage primaryStage) throws FileNotFoundException {
+         user_copy = user;
 
         //initializing Panes
         GridPane topBar = new GridPane();
@@ -102,16 +103,48 @@ public class Header {
         searchConvo.setId("search");
 
         //Log Out
-        Button logOut = new Button("Log Out");
-        logOut.setId("logOutButton");
-        logOut.setOnAction(e -> {
+        Button exit = new Button("Exit");
+        Button logout = new Button("Logout");
+
+        exit.setId("logOutButton");
+        logout.setId("logOutButton");
+        
+        exit.setOnAction(e -> {
             System.exit(0);
         });
 
 
+        logout.setOnAction( e -> {
+            Stage createAccStage = new Stage();
+
+            Login login = new Login();
+            login.deleteUserFile();
+
+            primaryStage.close();
+            Scene createAccountScene = login.createAccount(createAccStage);
+            createAccStage.setScene(createAccountScene);
+            createAccStage.showAndWait();
+
+            if(login.getUser() == null){
+                System.exit(0);
+            }else{
+                Launcher launch = new Launcher();
+                try {
+                    Scene scene = launch.genMainScene(primaryStage);
+                     
+                    primaryStage.setScene(scene);
+                    primaryStage.show();
+                    
+                } catch (IOException e1) {
+                    // TODO Auto-generated catch block
+                    e1.printStackTrace();
+                }
+            }
+        });
+
 
         name.getChildren().addAll(profileCircle, channel, status);
-        actions.getChildren().addAll(voiceCall, videoCall, searchConvo, logOut);
+        actions.getChildren().addAll(voiceCall, videoCall, searchConvo,logout, exit);
         topBar.add(name, 0, 1);
         topBar.add(actions, 1, 1);
 
