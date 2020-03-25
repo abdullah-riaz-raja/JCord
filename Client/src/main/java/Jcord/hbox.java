@@ -1,4 +1,4 @@
-package Channels;
+package Jcord;
 /*References
 * https://www.youtube.com/watch?v=EO62ud_q9s0
 *
@@ -53,6 +53,7 @@ public class hbox extends Application {
 
     }
 
+    /*
     Node node1(){
         VBox root = new VBox();
         //BorderPane pane_frame = new BorderPane();
@@ -65,7 +66,7 @@ public class hbox extends Application {
         root.getChildren().addAll();
         return root;
 
-    }
+    }*/
 
     // HBox(Label), channel list
     private HBox Hbox_label(){
