@@ -6,57 +6,23 @@ import java.net.Socket;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.function.Consumer;
+import java.util.HashSet;
 
-public class CommunicationClient implements Runnable{
+public class CommunicationClient{
     private ObjectOutputStream outputStream;
     private ObjectInputStream inputStream;
     private Socket remote = null;
     private String ip;
     private int port;
-    private Consumer<Message> chatAppender;
-    private Consumer<Message> voicePlay;
 
-    public CommunicationClient(String host, int port, Consumer<Message> chatAppender, Consumer<Message> voicePlay) {
+    public CommunicationClient(String host, int port) throws IOException {
         this.ip = host;
         this.port = port;
-        this.chatAppender = chatAppender;
-        this.voicePlay = voicePlay;
-    }
-
-    public void run()
-    {
-        try {
-            // Setting Up Streams and Port
-            this.remote = new Socket(this.ip, this.port);
-            outputStream = new ObjectOutputStream(this.remote.getOutputStream());
-            inputStream =  new ObjectInputStream(this.remote.getInputStream());
-
-            // Continue Listening For Server Response
-            while(remote.isConnected())
-            {
-                Message message = (Message) inputStream.readObject();
-                if (message != null)
-                {
-                    switch(message.getMessageType())
-                    {
-                        case MESSAGE:
-                            chatAppender.accept(message);
-                            break;
-                        case VOICEMESSAGE:
-                            voicePlay.accept(message);
-                            break;
-                    }
-                }
-
-            }
-        }catch(Exception e)
-        {
-            e.printStackTrace();
-        }finally
-        {
-            closeConnection();
-        }
+        this.remote = new Socket(this.ip, this.port);
+        outputStream = new ObjectOutputStream(this.remote.getOutputStream());
+        inputStream =  new ObjectInputStream(this.remote.getInputStream());
     }
 
     // returns true if succesful, otherwise false
@@ -71,7 +37,7 @@ public class CommunicationClient implements Runnable{
         }
     }
 
-    public void sendMessage(Message message){
+    public <T> void sendMessage(T message){
         try
         {
             outputStream.writeObject(message);
@@ -81,6 +47,32 @@ public class CommunicationClient implements Runnable{
             e.printStackTrace();
             System.out.println("Failed to send message.");
         }
+    }
+
+    public ArrayList<Message> getNewMessage(int id) throws IOException, ClassNotFoundException {
+        outputStream.writeObject(id);
+        outputStream.flush();
+        Object response = inputStream.readObject();
+
+        ArrayList<Message> newMsg = new ArrayList<Message>();
+        if (response instanceof ArrayList){
+            newMsg = (ArrayList<Message>)response;
+        }
+
+        return newMsg;
+    }
+
+    public HashSet<User> getNewUser(User user) throws IOException, ClassNotFoundException {
+        outputStream.writeObject(user);
+        outputStream.flush();
+        Object response = inputStream.readObject();
+
+        HashSet<User> newUsers = new HashSet<User>();
+        if (response instanceof HashSet){
+            newUsers = (HashSet<User>)response;
+        }
+
+        return newUsers;
     }
 
     public void closeConnection()

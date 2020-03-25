@@ -25,7 +25,7 @@ import javafx.stage.Stage;
 import javafx.scene.layout.VBox;
 
 public class MessageCreator {
-    public static Node GenerateMessageBox(Stage stage, User user,CommunicationClient handler) {
+    public static Node GenerateMessageBox(Stage stage, User user, CommunicationClient handler) {
         // pane is just for testing, actual class will just be functional
         HBox pane = new HBox();
 
@@ -44,11 +44,20 @@ public class MessageCreator {
 
                 if (event.getCode() == KeyCode.ENTER) {
                     String text = messageBox.getText();
+                    HashMap<String, String> info = new HashMap<String, String>() ;
+                    
+                    try {
+                        info = Utils.getServerInfo("communication.json");
+                    } catch (FileNotFoundException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+
+                    
 
                     if (handler.establishConnection()) {
                         Date time = new Date(System.currentTimeMillis());
                         Message newMsg = new Message(user, time, messageBox.getText());
-                        newMsg.messageId = 0;
                         // public MessageViewers(User user,Date timeSent,String msg){
 
                         try {
@@ -95,4 +104,6 @@ public class MessageCreator {
         
         return pane;
     }
+
+
 }

@@ -6,13 +6,17 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.PixelFormat;
 import javafx.scene.image.WritableImage;
+import java.util.Date;
 
 public class User implements Serializable {
+    private static final long serialVersionUID = 3610722771006373724L;
+
     private String userName;
     
     // have to use byte[] because Image is not serializable
     private byte[]  profilePicture;
-    
+
+    public Date lastActivity;
     private boolean isOnline;
     public int width;
     public int height;
@@ -23,10 +27,11 @@ public class User implements Serializable {
         this.width = (int) profilePic.getWidth();
         this.height = (int) profilePic.getHeight();
         this.profilePicture =  new byte[this.width * this.height * 4];
+
+        this.lastActivity = new Date(System.currentTimeMillis());
        
         profilePic.getPixelReader().getPixels(0, 0, this.width, this.height, PixelFormat.getByteBgraInstance(),
         this.profilePicture, 0, this.width * 4);
-
     }
 
     public void setUsernmane(String userName){
@@ -45,6 +50,9 @@ public class User implements Serializable {
     public void setIsOnline(boolean active){
         this.isOnline = active;
     }
+
+    public void setLastActivity(Date lastActivity){this.lastActivity = lastActivity;}
+    public Date getLastActivity(){return lastActivity;}
     
     public String getUsername(){
         return this.userName;

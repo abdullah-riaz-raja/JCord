@@ -3,10 +3,10 @@
     -fx-background-color: #40444b;
 }
 */
+
 .messageView{
     -fx-background-color: #40444b;
 }
-
 
 .messageView .text-area{
     -fx-font-family: "Whitney";
@@ -72,6 +72,22 @@
     -fx-background-color: #40444b;
 }
 
+
+.login {
+    -fx-background-color: #2a2d31;
+}
+
+.login .text-field {
+    -fx-font: 10px "Whitney";
+    -fx-text-fill: "white";
+    -fx-background-color: #646b75;
+}
+
+.login .button {
+    -fx-background-color: #7289da;
+    -fx-font: 10px "Whitney";
+    -fx-text-fill: "white";
+}
 
 /*
 #messageCreate {
@@ -139,4 +155,21 @@
     -fx-border-radius: 5;
     -fx-border-width:5;
     -fx-border-color: #40444b;
+}
+
+.root {
+    -fx-background-color: #40444b;
+}
+
+#headerButtons {
+    -fx-background-color: #40444b;
+    -fx-background-radius: 50;
+    -fx-padding: 0;
+}
+
+#search {
+    -fx-text-fill: #40444b;
+    -fx-background-color: #262626;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8;
 }

@@ -1,135 +1,109 @@
 package Jcord;
 
+import java.io.DataInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.TimerTask;
+import java.util.Timer;
 
+import Server.Server;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.effect.Lighting;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.application.Platform;
-
+import javafx.event.EventHandler;
+import javafx.scene.Node;
 import Server.Utils;
 
-import javax.xml.soap.Node;
-
-/*
 public class Launcher extends Application {
+    DataInputStream fromServer = null;
+    VBox messageViewHolder = new VBox();
+    int newestMessageId = 0;
+    User user;
+    CommunicationClient handler;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
-    }
-
-    public static void main(String[] args) throws FileNotFoundException {
-        HashMap <String,String> ipInfo = Utils.getServerInfo("communication.json");
+        Login login = new Login();
         
-        String ip = ipInfo.get("server-remote-ip");
-        int port = Integer.parseInt(ipInfo.get("server-message-receive-port"));
+        if(!login.isSignedIn()){
+            Stage createAccStage = new Stage();
 
-        CommunicationClient server = new CommunicationClient(ip, port);
-        
-        
-        server.establishConnection();
-        
-        Date time = new Date(System.currentTimeMillis());
+            Scene createAccountScene = login.createAccount(createAccStage);
 
-        User userTest = new User("Coleman2247", new Image("TestPreDataBase/index.jpeg"));
-        String message = new String("Hello");
+            createAccStage.setScene(createAccountScene);
+            createAccStage.showAndWait();
+           
+            user = login.getUser();
 
-        MessageViewers test = new MessageViewers(userTest, time, message);
-        
-        try {
-            server.sendMessage(test);
-        } catch (IOException e) {
-            e.printStackTrace();
+        }else{
+            user = login.getUserFromFile();
+            System.out.println(user.getUsername());
         }
-    
-    }
-}
-
-
-*/
-
-
-public class Launcher extends Application {
-    
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        VBox pane = new VBox();
-        pane.getStyleClass().add("body-pane");
-
-        User userTest = new User("Cole",new Image("TestPreDataBase/index.jpeg"));
-
-        String message = new String("Hello");
-
-
-        //MessageViewers msg = new MessageViewers(userTest, time,message);
-        //MessageViewers msg2 = new MessageViewers(userTest, time,"Hello THere");
-
-        //pane.getChildren().addAll(msg.generateMessageViewNode(),msg2.generateMessageViewNode(),MessageCreator.GenerateMessageBox());
         
-        ScrollPane ptest = new ScrollPane();
-        VBox messageViewHolder = new VBox();
-
+        
+       
         // Establishing Server Info Path
         HashMap<String, String> info = null;
         try {
-            info = Utils.getServerInfo("communication.json");
+            info = Utils.getServerInfo("communication.json"); 
         } catch (FileNotFoundException e) {
             System.out.println("Could not Find communcation json when sending msg");
             e.printStackTrace();
         }
 
-        // Connecting To Server
-        CommunicationClient handler = new CommunicationClient(info.get("server-remote-ip"),
-                Integer.parseInt(info.get("server-message-receive-port")),
-                textMessage ->
-                {
-                    Platform.runLater(()->{
-                        Date time = new Date(System.currentTimeMillis());
-                        Message test = (Message) textMessage;
-                        messageViewHolder.getChildren().add(test.generateMessageViewNode());
-                    });
-                },
-                voiceMessage ->
-                {
 
-                });
-
-        new Thread(handler).start();
+        this.handler = new CommunicationClient(info.get("server-remote-ip"),
+                Integer.parseInt(info.get("server-message-receive-port")));
 
 
-        /* Message Filler
-        for(int i =0; i <1; i++){
-            Date time = new Date(System.currentTimeMillis());
-            Message test = new Message(userTest, time,message);
-            messageViewHolder.getChildren().add(test.generateMessageViewNode());
-        }
-        */
-
+        VBox sendMsgPane = new VBox();
+        sendMsgPane.getStyleClass().add("body-pane");
+        ScrollPane ptest = new ScrollPane();
         
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
 
+        Node topBar = Header.header();
+
+        sendMsgPane.getChildren().addAll(topBar, ptest, MessageCreator.GenerateMessageBox(primaryStage, user, handler));
+        HBox pane = new HBox();
+        
+        pane.getChildren().add(sendMsgPane);
+        HBox.setHgrow(ptest,Priority.ALWAYS);
+
+        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
+        pane.getChildren().add(onlinePeople.generatePeopleOnline());
+
+        
+        Scene scene = new Scene(pane);
+        /*
         //People Online Viewer
         HBox message1 = new HBox();
-        PeopleOnlineViewer test1 = new PeopleOnlineViewer(userTest);
+        PeopleOnlineViewer test1 = new PeopleOnlineViewer(user);
         message1.getChildren().add(test1.generatePeopleOnline());
         //
-        /*ptest.setMinWidth(800);
-        ptest.setMaxWidth(800);*/
+        ptest.setMinWidth(800);
+        ptest.setMaxWidth(800);
 
         HBox message2 = new HBox();
 
-        message2.getChildren().add(MessageCreator.GenerateMessageBox(primaryStage,userTest,handler));
+        message2.getChildren().add(MessageCreator.GenerateMessageBox(primaryStage,user,handler));
 
         pane.getChildren().addAll(ptest, message2);
 
@@ -138,15 +112,83 @@ public class Launcher extends Application {
 
         HBox pane3 = new HBox();
 
-        Scene scene = new Scene(pane3);
+        scene = new Scene(pane3);
         pane3.getChildren().addAll(pane, pane2);
 
         
+        */
         scene.getStylesheets().add("customCss.css");
-      
+
+        Runnable addNewMessage = new ListenForNewMessage(this);
+        Thread checker = new Thread(addNewMessage);
+        checker.start();
+
+
+        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent t) {
+                handler.closeConnection();
+                Platform.exit();
+                System.exit(0);
+            }
+        });
+
+
         primaryStage.setScene(scene);
         primaryStage.show();
-        
+
+    }
+
+    public VBox addMessageToView(Message messsage, VBox view) {
+        view.getChildren().add(messsage.generateMessageViewNode());
+        return view;
+    }
+
+    private class ListenForNewMessage implements Runnable {
+        Launcher currentClient;
+
+        public ListenForNewMessage(Launcher instance) {
+            this.currentClient = instance;
+        }
+
+        @Override
+        public void run() {
+            while (true) {
+                // TODO Auto-generated method stub
+                Platform.runLater(() -> {
+                    try {
+                        ArrayList<Message> newMsg = this.currentClient.handler.getNewMessage(currentClient.newestMessageId);
+
+                        int currentId = currentClient.newestMessageId;
+
+                        for (Message i : newMsg) {
+                            this.currentClient.messageViewHolder.getChildren().add(i.generateMessageViewNode());
+                            System.out.println(i.getMessage());
+                            currentId = i.getMessageId();
+
+                        }
+                        currentClient.newestMessageId = currentId;
+
+                        currentClient.user.setLastActivity(new Date(System.currentTimeMillis()));
+
+                        HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
+
+                        for (User user : newUser) {
+                            // TODO : add users
+                        }
+                    }catch (ClassNotFoundException | IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
+                });
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 }
  
