@@ -103,7 +103,7 @@ public class Header {
 
         //Log Out
         Button logOut = new Button("Log Out");
-        logOut.setId("logOut");
+        logOut.setId("logOutButton");
         logOut.setOnAction(e -> {
             System.exit(0);
         });

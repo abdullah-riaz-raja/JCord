@@ -188,7 +188,7 @@
     -fx-background-radius: 20;
 }
 
-#logOut {
+#logOutButton {
     -fx-text-fill: white;
     -fx-background-color: #f02626;
     -fx-font-weight: bold;
