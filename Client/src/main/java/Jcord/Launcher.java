@@ -206,14 +206,16 @@ public class Launcher extends Application {
 
                         userOnlineArrayList= new ArrayList<User>(newUser);
                         Collections.sort(userOnlineArrayList, new UserComparator());
+
                         
                         //System.out.println(userOnlineArrayList);
                         
-
+                        /*
                         for (User i : userOnlineArrayList) {
                             // TODO : add users
                             System.out.println(i.getUsername());
                          }
+                         */
                     }catch (ClassNotFoundException | IOException e) {
                         // TODO Auto-generated catch block
                         e.printStackTrace();
