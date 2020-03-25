@@ -23,6 +23,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.control.ScrollPane;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.application.Platform;
@@ -78,6 +79,7 @@ public class Launcher extends Application {
         
         ptest.setContent(messageViewHolder);
         ptest.getStyleClass().add("messageWindow");
+        ptest.vvalueProperty().bind(messageViewHolder.heightProperty());
 
         Node topBar = Header.header();
 
