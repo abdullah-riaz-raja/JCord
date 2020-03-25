@@ -22,16 +22,15 @@ package Channels;
 * Retrieved from https://stackoverflow.com/questions/12678197/add-image-to-a-button-at-a-specific-position-javafx
 * */
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.scene.Node;
 
 public class hbox extends Application {
     @Override // Override the start method in the Application class
@@ -48,9 +47,23 @@ public class hbox extends Application {
         root.getChildren().addAll();
         Scene display_scene = new Scene(root,330,650);//placing pane in scene
         primaryStage.setTitle("Display Channels");// setting stage title
-        display_scene.getStylesheets().add("customCss.css");
+        display_scene.getStylesheets().add("ChannelCss.css");
         primaryStage.setScene(display_scene);// placing scene into the stage
         primaryStage.show();// displaying stage
+
+    }
+
+    Node node1(){
+        VBox root = new VBox();
+        //BorderPane pane_frame = new BorderPane();
+
+        // Allowing the nodes inside the pane
+        //pane_frame.setTop(createHbox());
+        //pane_frame.setTop(createHbox2());
+        //pane_frame.setBottom(createVBox());
+        root.getChildren().addAll(Hbox_label(),createHbox(),createHbox2());
+        root.getChildren().addAll();
+        return root;
 
     }
 

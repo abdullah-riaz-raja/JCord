@@ -12,11 +12,11 @@ public class test extends Application {
         // Create a scene and place a button in the scene
         StackPane pane = new StackPane();
         Button btOK = new Button("Normal chat channel");
-        btOK.getStylesheets().add("customCss.css");
+        btOK.getStylesheets().add("ChannelCss.css");
         pane.getChildren().add(btOK);
         Scene scene = new Scene(pane, 350, 500);
         primaryStage.setTitle("three"); // Set the stage title
-        scene.getStylesheets().add("customCss.css");
+        scene.getStylesheets().add("ChannelCss.css");
         primaryStage.setScene(scene); // Place the scene in the stage
         primaryStage.show(); // Display the stage
     }

@@ -37,7 +37,7 @@ public class Launcher extends Application {
         pane.getChildren().addAll(ptest,MessageCreator.GenerateMessageBox());
         Scene scene = new Scene(pane);
         
-        scene.getStylesheets().add("customCss.css");
+        scene.getStylesheets().add("ChannelCss.css");
 
 
         primaryStage.setScene(scene);
