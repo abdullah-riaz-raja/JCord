@@ -36,6 +36,7 @@ import Server.Utils;
 public class Launcher extends Application {
     DataInputStream fromServer = null;
     VBox messageViewHolder = new VBox();
+    PeopleOnlineViewer onlinePeople1 = new PeopleOnlineViewer();
     int newestMessageId = 0;
     User user;
     CommunicationClient handler;
@@ -99,8 +100,15 @@ public class Launcher extends Application {
         pane.getChildren().add(sendMsgPane);
         HBox.setHgrow(scroll,Priority.ALWAYS);
 
-        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
-        pane.getChildren().add(onlinePeople.generatePeopleOnline());
+        /*ArrayList<User> userList1 = new ArrayList<User>();
+        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(userList1);
+        Node node1 = onlinePeople.generatePeopleOnline(onlinePeople.generate());
+        node1 = onlinePeople.generatePeopleOnline(onlinePeople.generate());
+        onlinePeople.add(user);*/
+
+        onlinePeople1.add(user);
+        Node node1 = onlinePeople1.generatePeopleOnline(onlinePeople1.generate());
+        pane.getChildren().add(node1);
 
 
         Scene scene = new Scene(pane);
@@ -213,7 +221,7 @@ public class Launcher extends Application {
 
                     for (User i : userOnlineArrayList) {
                         // TODO : add users
-                        System.out.println(i.getUsername());
+                        this.currentClient.onlinePeople1.add(i);
                     }
                 }catch (ClassNotFoundException | IOException e) {
                     // TODO Auto-generated catch block
