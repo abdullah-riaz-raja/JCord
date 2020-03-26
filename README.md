@@ -1,9 +1,16 @@
 # JCord
 
-Group Members: Cole Mollica: 100706187																																																									Anthony Huang
-               Abdullah Riaz Raja
-               Nishchal Bhardwaj: 100706116
-               Azeem Syed Hussaini 100707191
+Group Members:
+
+Cole Mollica: 100706187
+
+Anthony Huang
+
+Abdullah Riaz Raja
+
+Nishchal Bhardwaj: 100706116 
+
+Azeem Syed Hussaini 100707191
 
 Instructions to run:
 
@@ -11,7 +18,8 @@ Instructions to run:
 
 
 Classes:
-ChannelsDisplay()
+
+ChannelsDisplay():
 Purpose:
 
 CommunicationClient()
