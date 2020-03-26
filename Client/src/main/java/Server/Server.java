@@ -146,11 +146,10 @@ public class Server {
     {
         public void run()
         {
-            System.out.println(onlineUsers);
-                
             // Update Online Users Information
             for (Iterator<User> iterator = onlineUsers.iterator(); iterator.hasNext();)
             {
+                // Comparing Activity Timer
                 User user = iterator.next();
                 if ( (System.currentTimeMillis() - user.getLastActivity().getTime())  > 30000)
                 {
