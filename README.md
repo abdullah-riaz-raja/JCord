@@ -6,7 +6,7 @@ Cole Mollica: 100706187
 
 Anthony Huang
 
-Abdullah Riaz Raja
+Abdullah Riaz Raja: 100693348
 
 Nishchal Bhardwaj: 100706116
 
@@ -16,11 +16,11 @@ Instructions to run:
 
 Classes:
 
-ChannelsDisplay(): Purpose:
+ChannelsDisplay()Nishchal Bhardwaj: Purpose: todisplay the list of channels
 
 CommunicationClient() Purpose:
 
-Header() Purpose:
+Header()Abdullah Riaz Raja Purpose:
 
 Launcher() Purpose:
 
@@ -30,7 +30,7 @@ Message() Purpose:
 
 MessageCreator() Purpose:
 
-PeopleOnlineViewer() Purpose: to display all users who are online
+PeopleOnlineViewer()Azeem Syed Hussaini Purpose: to display all users who are online
 
 Updates() Purpose:
 
