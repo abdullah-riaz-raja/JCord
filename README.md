@@ -16,7 +16,7 @@ Instructions to run:
 
 Classes:
 
-ChannelsDisplay()Nishchal Bhardwaj: Purpose: todisplay the list of channels
+ChannelsDisplay()Nishchal Bhardwaj: Purpose: to display the list of channels
 
 CommunicationClient() Purpose:
 
