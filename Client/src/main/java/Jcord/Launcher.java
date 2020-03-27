@@ -235,12 +235,12 @@ public class Launcher extends Application {
                     currentClient.newestMessageId = currentId;
 
                     // Sends current time the user is using the application to server and receive update on status
-                    currentClient.user.setLastActivity(new Date(System.currentTimeMillis()));
-                    HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
+                    //currentClient.user.setLastActivity(new Date(System.currentTimeMillis()));
+                    //HashSet<User> newUser = this.currentClient.handler.getNewUser(currentClient.user);
 
                     // Sorts the users
-                    Collections.sort(userOnlineArrayList, new UserComparator());
-                    userOnlineArrayList= new ArrayList<User>(newUser);
+                    //Collections.sort(userOnlineArrayList, new UserComparator());
+                    //userOnlineArrayList= new ArrayList<User>(newUser);
 
                     // TODO : add users
 
