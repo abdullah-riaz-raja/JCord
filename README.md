@@ -6,7 +6,7 @@ Text chat application design to communicate between users using the application.
 ## Contributors
 * Cole Mollica
      * Roles: Back-End, Project Planning, GUI
-     * [Github Profile]((https://github.com/coleman2246)
+     * [Github Profile](https://github.com/coleman2246)
      * Student ID: 100706187
 * Anthony Huang
      * Roles: Back-End, Project Planning, GUI
