@@ -23,25 +23,51 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+/**
+ * This class handles the login function of the application
+ *
+ * @see Application
+ * @see Stage
+ * @see Image
+ * @see GridPane
+ */
 public class Login {
     Stage stage;
     Image profilePicture;
     GridPane pane = new GridPane();
     User user;
 
+    /**
+     * This method checks if the user was signed in before
+     *
+     * @return boolean of the user file existing
+     */
     boolean isSignedIn() {
         return new File("src/main/resources/UserInfo/profile.user").exists();
     }
 
+    /**
+     * This accessor method returns the user
+     *
+     * @return User of the client
+     */
     User getUser() {
         return this.user;
     }
 
+    /**
+     * This method returns the user from the file
+     *
+     * @return User of the client
+     * @throws IOException
+     * @see FileInputStream
+     * @see ObjectInputStream
+     * @see File
+     */
     User getUserFromFile() throws IOException {
         File newUserFile = new File("src/main/resources/UserInfo/profile.user");
         FileInputStream fileInStream = new FileInputStream(newUserFile);
         ObjectInputStream objectStream = new ObjectInputStream(fileInStream);
-
 
         try {
             user = (User) objectStream.readObject();
@@ -53,6 +79,13 @@ public class Login {
         return user;
     }
 
+    /**
+     * This method saves the user data in a new file
+     *
+     * @see FileOutputStream
+     * @see ObjectOutputStream
+     * @see File
+     */
     void saveUser() {
         FileOutputStream fileStream;
 		try {
@@ -62,7 +95,6 @@ public class Login {
             fileStream = new FileOutputStream(newUserFile);
             ObjectOutputStream objectStream = new ObjectOutputStream(fileStream);
             objectStream.writeObject(this.user);
-            
             
             objectStream.close();
             fileStream.close();
@@ -75,11 +107,22 @@ public class Login {
         }
     }
 
+    /**
+     * This method deletes the currently stored user
+     *
+     * @see #saveUser()
+     */
     void deleteUserFile(){
         File newUserFile = new File("src/main/resources/UserInfo/profile.user");
         newUserFile.delete();
     }
 
+    /**
+     * This method creates a {@link ClickableButton} for the user's image
+     *
+     * @param image Image of the user
+     * @return ClickableButton of the user's image
+     */
     ClickableButton makeImageCircle(Image image) {
         ClickableButton profileView = new ClickableButton(image);
         profileView.setFitHeight(50);
@@ -91,21 +134,25 @@ public class Login {
         return profileView;
     }
 
+    /**
+     * This method creates the account
+     *
+     * @param stage of the application
+     * @return Scene of the account creation
+     */
     public Scene createAccount(Stage stage) {
         this.stage = stage;
 
+        // Gets the username information from the user
         TextField userNameField = new TextField();
         userNameField.getStyleClass().add("login");
         userNameField.setPromptText("Username");
 
-  
-
-
+        // Prompt User Information
         Text userName = new Text("Username: ");
         userName.setFont(new Font("Whitney", 12));
         userName.setFill(javafx.scene.paint.Color.WHITE);
 
-        //pane.add(userName, 1, 0);
         pane.add(userNameField, 1, 0);
 
         this.profilePicture = new Image("Images/default_pp.jpg");
@@ -114,8 +161,8 @@ public class Login {
 
         pane.getStyleClass().add("login");
 
+        // Creates the account
         Button create = new Button("Create Account");
-        
         create.setOnAction( e->{
             user = new User(userNameField.getText(), this.profilePicture);
             saveUser();
@@ -140,8 +187,16 @@ public class Login {
         return scene;
     }
 
+    /**
+     * This helper class extends {@link ImageView} and handles the view of the user image
+     */
     class ClickableButton extends ImageView {
 
+        /**
+         * This constructor takes in the user's image and constucts the view
+         *
+         * @param graphic
+         */
         public ClickableButton(Image graphic) {
 
             setImage(graphic);
