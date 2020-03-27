@@ -14,7 +14,7 @@ Nishchal Bhardwaj: 100706116
 Azeem Syed Hussaini 100707191
 
 # Requirements
- Gradle 6.3 is required. If another version is used there may be an issue with paths files which may break the css/entire thing. Written with Java version 11.05. 
+ Gradle 6.3 is required. If another version is used there may be an issue with file paths  which may break the css/entire thing. Written with Java version 11.05. 
 # Instructions to Run
 To run the application a server must first be started. Server information can be configured in the **JCord/Client/src/main/resources/communication.json**. The server can be started with the command **gradle server** being run from the Client folder. The client can be run with the command **gradle run** being run from the client folder.
 
