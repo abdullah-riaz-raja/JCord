@@ -25,9 +25,11 @@ Text chat application design to communicate between users using the application.
      * [Github Profile](https://github.com/Azeem-Hussaini)
      * Student ID: 100707191
 ## How to run
-* Requires gradle and to run
-* Requires the server to be open before the client and portforwarding if not connecting locally
-* Go to the root of the project and go to Client folder
+* Requires Gradle 6.3. If another version is used there may be an issue with paths files which may break the css/entire thing. Written with Java version 11.05. 
+* To run the application a server must first be started. 
+* Server information can be configured in the **JCord/Client/src/main/resources/communication.json**.
+* Requires the server to first be open before the client can open their app. Portforwarding is required if not connecting locally.
+* Go to the root of the project and go to **Client** folder
      * Start server: gradle server
      * Open application: gradle run
 ## Current Features
