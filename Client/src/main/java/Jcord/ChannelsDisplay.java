@@ -31,6 +31,13 @@ import javafx.scene.Node;
 
 public class ChannelsDisplay{
 
+    /**
+     * This Node method creates a VBox
+     * Label(), ChatChannel(), VoiceChannel() hboxes are added to the VBox
+     * This node gets called in the launcher class
+     *
+     * @return {@link#root}
+     */
     Node node1() {
         VBox root = new VBox();
         root.getChildren().addAll(Label(), ChatChannel(), VoiceChannel());
@@ -38,6 +45,13 @@ public class ChannelsDisplay{
         return root;
     }
 
+    /**
+     * This HBox method creates a label as a heading
+     * The image is getting accessed and displayed next to the label
+     * Label getting added to the hbox
+     *
+     * @return {@link#hBox0}
+     */
     // HBox(Label), channel list
     private HBox Label() {
         HBox hBox0 = new HBox(100);
@@ -47,6 +61,13 @@ public class ChannelsDisplay{
         return hBox0;
     }
 
+    /**
+     * This HBox method creates a chat channel button below the label
+     * The image is getting accessed and displayed next to the button
+     * Button getting added to the hbox
+     *
+     * @return {@link#hBox1}
+     */
     //Hbox(button 1)
     private HBox ChatChannel() {
         HBox hBox1 = new HBox(100);
@@ -63,6 +84,13 @@ public class ChannelsDisplay{
         return hBox1;
     }
 
+    /**
+     * This HBox method creates a voice channel button below the chat channel button
+     * The image is getting accessed and displayed next to the button
+     * Button getting added to the hbox
+     *
+     * @return {@link#hBox2}
+     */
     //Hbox(button 2)
     private HBox VoiceChannel() {
         HBox hBox2 = new HBox(100);
@@ -78,21 +106,4 @@ public class ChannelsDisplay{
         hBox2.getChildren().add(button);
         return hBox2;
     }
-
-    /*
-    //Hbox(button 3)
-    private HBox createHbox3(){
-        HBox hBox2 = new HBox(50);
-        Image hashtag = new Image("arrow4.png");
-        //hBox.setPadding(new Insets(15,15,15,15));
-        ImageView iv4 = new ImageView();
-        iv4.setImage(hashtag);
-        iv4.setFitWidth(35);
-        iv4.setPreserveRatio(true);
-        iv4.setSmooth(true);
-        iv4.setCache(true);
-        Button button = new Button("Display Channels", iv4);
-        hBox2.getChildren().add(button);
-        return hBox2;
-    }*/
 }

@@ -1,5 +1,17 @@
 package Jcord;
 
+/*References
+
+ * Benben. (1966, December 1). How to set an image in a circle. 
+ * Retrieved from https://stackoverflow.com/questions/42116313/how-to-set-an-image-in-a-circle
+ * 
+ * CSS styling:
+ * https://www.youtube.com/watch?v=UD_SJ07mQlM
+ * https://www.youtube.com/watch?v=MAiKpkQqb6Q
+ * https://www.youtube.com/watch?v=lVdtE2BNd88
+ 
+ * */
+
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -25,13 +37,26 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 public class Header {
+
     static User user_copy;
+
+    /**
+     * This Node method creates the header for our application which contains
+     * name, profile pic and online status of the user
+     * It extracts the user info from the User variable passed into it
+     * This node gets called in the launcher class
+     * 
+     * @param user info of the current signed in user to be displayed at header
+     * @param primaryStage used when logging out for the log in window
+     *
+     * @return {@link#topBar}
+     */
     public static Node header(User user, Stage primaryStage) throws FileNotFoundException {
          user_copy = user;
 
         //initializing Panes
         GridPane topBar = new GridPane();
-
+        
         HBox name = new HBox();
         name.setSpacing(10);
         name.setPadding(new Insets(25));
@@ -41,10 +66,11 @@ public class Header {
         actions.setPadding(new Insets(25));
 
         //Column Constraints
+        //Divides the gridpane into two sections of size 80% and 20%
         ColumnConstraints col1 = new ColumnConstraints();
-        col1.setPercentWidth(70);
+        col1.setPercentWidth(80);
         ColumnConstraints col2 = new ColumnConstraints();
-        col2.setPercentWidth(30);
+        col2.setPercentWidth(20);
         topBar.getColumnConstraints().addAll(col1,col2);
 
 
@@ -53,10 +79,10 @@ public class Header {
         Image profileImg = user.getProfilePicture();
         profileCircle.setFill(new ImagePattern(profileImg));
 
-        //channel/username/group name
-        Text channel = new Text(user.getUsername());
-        channel.setFont(Font.font("Arial", FontWeight.BOLD, 20));
-        channel.setFill(Color.WHITESMOKE);
+        //profile name
+        Text profileName = new Text(user.getUsername());
+        profileName.setFont(Font.font("Arial", FontWeight.BOLD, 20));
+        profileName.setFill(Color.WHITESMOKE);
 
         //online status
         ImageView status = new ImageView();
@@ -70,50 +96,21 @@ public class Header {
         status.setFitWidth(20);
         status.setFitHeight(20);
 
-        //Buttons and Search
-        //voice
-        Button voiceCall = new Button();
-        Image voiceCallImg = new Image("Images/voiceCall.png");
-        ImageView voice = new ImageView(voiceCallImg);
-        voice.setFitWidth(20);
-        voice.setFitHeight(20);
-        voiceCall.setGraphic(voice);
-        voiceCall.setId("headerButtons");
-
-        //video
-        Button videoCall = new Button();
-        Image videoCallImg = new Image("Images/videoCall.png");
-        ImageView video = new ImageView(videoCallImg);
-        video.setFitWidth(20);
-        video.setFitHeight(20);
-        videoCall.setGraphic(video);
-        videoCall.setId("headerButtons");
-
-//        //pinned
-//        Button pinnedMessages = new Button();
-//        Image pinnedImg = new Image("Images/pushPin.png");
-//        ImageView pinned = new ImageView(pinnedImg);
-//        pinned.setFitWidth(20);
-//        pinned.setFitHeight(20);
-//        pinnedMessages.setGraphic(pinned);
-//        pinnedMessages.setId("headerButtons");
-
-        //search
-        TextField searchConvo = new TextField("Search");
-        searchConvo.setId("search");
-
-        //Log Out
+        //Buttons
+        //Exit and Log Out Button
         Button exit = new Button("Exit");
         Button logout = new Button("Logout");
 
         exit.setId("logOutButton");
         logout.setId("logOutButton");
         
+        //Exit Button. When pressed, exits the app
         exit.setOnAction(e -> {
             System.exit(0);
         });
 
-
+        //Log out button. When pressed, calls the method from Launcher class to
+        //display Log In screen again
         logout.setOnAction( e -> {
             Stage createAccStage = new Stage();
 
@@ -142,9 +139,9 @@ public class Header {
             }
         });
 
-
-        name.getChildren().addAll(profileCircle, channel, status);
-        actions.getChildren().addAll(voiceCall, videoCall, searchConvo,logout, exit);
+        //adds all ui elments on the gridpane
+        name.getChildren().addAll(profileCircle, profileName, status);
+        actions.getChildren().addAll(logout, exit);
         topBar.add(name, 0, 1);
         topBar.add(actions, 1, 1);
 
