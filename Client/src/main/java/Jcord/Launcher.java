@@ -44,6 +44,7 @@ import Server.Utils;
 public class Launcher extends Application {
     DataInputStream fromServer = null;
     VBox messageViewHolder = new VBox();
+    PeopleOnlineViewer onlinePeople1 = new PeopleOnlineViewer();
     int newestMessageId = 0;
     User user;
     CommunicationClient handler;
@@ -115,8 +116,6 @@ public class Launcher extends Application {
         HBox.setHgrow(scroll,Priority.ALWAYS);
 
         // Setting up other user's status view
-        PeopleOnlineViewer onlinePeople = new PeopleOnlineViewer(user);
-        pane.getChildren().add(onlinePeople.generatePeopleOnline());
 
         // Setting up the application scene
         Scene scene = new Scene(pane);
