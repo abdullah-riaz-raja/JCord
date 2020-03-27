@@ -4,12 +4,12 @@ https://github.com/coleman2246/JCord
 ## Project Description
 Text chat application design to communicate between users using the application.
 ## Contributors
-1. Cole Mollica
- * Roles: Back-End, Project Planning, GUI
- * [Github Profile]((https://github.com/coleman2246)
- * Student ID: 100706187
+* Cole Mollica
+     * Roles: Back-End, Project Planning, GUI
+     * [Github Profile]((https://github.com/coleman2246)
+     * Student ID: 100706187
 2. Anthony Huang
- * Roles: Back-End, Project Planning, GUI
+     * Roles: Back-End, Project Planning, GUI
  * [Github Profile](https://github.com/Nycarus)
  * Student ID: 100711927
 - Abdullah Riaz Raja
